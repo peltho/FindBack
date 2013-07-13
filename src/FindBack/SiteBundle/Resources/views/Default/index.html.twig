@@ -1,0 +1,42 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <h3>FindBack</h3>
+    {{ render(controller('FOSUserBundle:Security:login')) }}
+  </div>
+</div>
+
+    <section>
+
+        <div class="content">
+            <div class="dialog">
+                <h4>Inscrivez-vous gratuitement</h4>
+                 {{ render(controller('FOSUserBundle:Registration:register')) }}
+            </div>
+
+            <div class="legend">
+                <p>Vous avez fait une rencontre lors d'un évenement marquant, <br />
+                Mais vous n'avez pas pu échanger vos coordonnées ?<br />
+                Vous souhaitez le ou la retrouver ?<br />
+                Il ou Elle vous recherche peut-être...<br /><br />
+                FindBack est là pour vous !</p>
+
+                <div class="countdown"><p>Déjà <span class="color">34024</span> personnes se sont retrouvées !</p></div>
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            $('input[name*="username"]').hide();
+        });
+    </script>
+{% endblock %}

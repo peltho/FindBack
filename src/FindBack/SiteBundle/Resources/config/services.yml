@@ -1,0 +1,13 @@
+parameters:
+#    find_back_site.example.class: FindBack\SiteBundle\Example
+
+services:
+#    find_back_site.example:
+#        class: %find_back_site.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    find_back_user.registration.form.type:
+        class: FindBack\SiteBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: find_back_user_registration }
