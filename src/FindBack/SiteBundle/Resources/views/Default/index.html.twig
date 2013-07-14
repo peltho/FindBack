@@ -5,7 +5,15 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <h3>FindBack</h3>
-    {{ render(controller('FOSUserBundle:Security:login')) }}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+        </a>
+    {% else %}
+        {{ render(controller('FOSUserBundle:Security:login')) }}
+    {% endif %}
+    
   </div>
 </div>
 
@@ -36,7 +44,13 @@
     {{ parent() }}
     <script type="text/javascript">
         $(function () {
-            $('input[name*="username"]').hide();
+            $('input[name="fos_user_registration_form[username]"]').removeAttr('required').hide();
+            $('form.fos_user_registration_register').submit(function () {
+                //var val = $('input[name="fos_user_registration_form[email][first]"]').val();
+                var val = $('input[name="fos_user_registration_form[firstname]"]').val();
+                //console.log(val);
+                $('input[name="fos_user_registration_form[username]"]').val(val);
+            });
         });
     </script>
 {% endblock %}

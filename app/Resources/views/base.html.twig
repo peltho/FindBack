@@ -8,6 +8,7 @@
             <link href="{{ asset('bundles/fanforfunleaflet/css/leaflet.css') }}" type="text/css" rel="stylesheet" />
             <link href="{{ asset('bundles/fanforfunleaflet/css/leaflet.ie.css') }}" type="text/css" rel="stylesheet" />
             <link href="{{ asset('bundles/findbacksite/css/base.css') }}" type="text/css" rel="stylesheet" />
+            {% if form is defined %}{{ form_stylesheet(form) }}{% endif %}
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -19,6 +20,7 @@
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/bootstrap.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/fanforfunleaflet/js/leaflet.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/base.js') }}"></script>
+            {% if form is defined %}{{ form_javascript(form) }}{% endif %}
         {% endblock %}
     </body>
 </html>

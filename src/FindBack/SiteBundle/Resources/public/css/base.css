@@ -43,7 +43,6 @@ section {
 .dialog {
     float:left;
     background-color: #f5f5f5;
-    margin: 0 auto 30px;
     border: 1px solid #0066CC;
     background: #fdfdfd;
     -webkit-border-radius: 4px;

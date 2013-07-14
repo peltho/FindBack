@@ -49,7 +49,10 @@ class RegistrationFormType extends BaseType
                         )
                     )
                 ))
-                //->add('birthdate', 'genemu_jquerydate', array('label' => false))
+                ->add('birthdate', 'genemu_jquerydate', array(
+                    'widget' => 'single_text',
+                    'label' => false,
+                ))
                 ->add('gender', 'choice', array(
                     'choices' => array('M' => 'Homme', 'F' => 'Femme'),
                     'expanded' => true,

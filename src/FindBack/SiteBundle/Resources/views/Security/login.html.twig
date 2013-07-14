@@ -6,7 +6,7 @@
 <form action="{{ path("fos_user_security_check") }}" method="post" class="navbar-form pull-right">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-    <input type="email" class="span2" id="email" name="_email" required="required" placeholder="Adresse e-mail" />
+    <input type="email" class="span2" id="email" name="_username" required="required" placeholder="Adresse e-mail" />
     <input type="password" class="span2" id="password" name="_password" required="required" placeholder="Mot de passe" />
 
     <input type="submit" class="btn" id="_submit" name="_submit" value="Connexion" />
