@@ -6,7 +6,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class FindBackSiteBundle extends Bundle
 {
-	public function getParent()
+    public function getParent()
     {
         return 'FOSUserBundle';
     }

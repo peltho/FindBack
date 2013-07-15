@@ -62,7 +62,6 @@ class RegistrationFormType extends BaseType
                     )
                 ))
             ;
-            
     }
 
     public function getName()
