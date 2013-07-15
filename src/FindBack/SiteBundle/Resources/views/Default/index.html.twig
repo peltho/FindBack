@@ -8,7 +8,7 @@
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
         <a href="{{ path('fos_user_security_logout') }}">
-            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            {{ 'layout.logout'|trans({}, 'messages') }}
         </a>
     {% else %}
         {{ render(controller('FOSUserBundle:Security:login')) }}
@@ -29,10 +29,10 @@
                 <p>Vous avez fait une rencontre lors d'un évenement marquant, <br />
                 Mais vous n'avez pas pu échanger vos coordonnées ?<br />
                 Vous souhaitez le ou la retrouver ?<br />
-                Il ou Elle vous recherche peut-être...<br /><br />
-                FindBack est là pour vous !</p>
+                Il ou Elle vous recherche peut-être...</p>
+                <h1>FindBack est là pour vous !</h1>
 
-                <div class="countdown"><p>Déjà <span class="color">34024</span> personnes se sont retrouvées !</p></div>
+                <div class="counter"><p>Déjà <span class="color">34104</span> personnes se sont retrouvées !</p></div>
             </div>
         </div>
 
@@ -44,12 +44,30 @@
     {{ parent() }}
     <script type="text/javascript">
         $(function () {
+
+            var images = ['blur.jpg', 'blur3.jpg'];
+            $('body').css({
+                'background': 'url(bundles/findbacksite/images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed',
+                '-webkit-background-size': 'cover',
+                '-moz-background-size': 'cover',
+                '-o-background-size': 'cover',
+                'background-size': 'cover'
+                
+            });
+
             $('input[name="fos_user_registration_form[username]"]').removeAttr('required').hide();
             $('form.fos_user_registration_register').submit(function () {
-                //var val = $('input[name="fos_user_registration_form[email][first]"]').val();
-                var val = $('input[name="fos_user_registration_form[firstname]"]').val();
-                //console.log(val);
+                var val = $('input[name="fos_user_registration_form[email][first]"]').val();
+                //var val = $('input[name="fos_user_registration_form[firstname]"]').val();
                 $('input[name="fos_user_registration_form[username]"]').val(val);
+            });
+
+            $('.settings').popover({
+                'title': 'Options',
+                'placement': 'bottom',
+                trigger: "click",
+                html: true,
+                'content': '<a href="#">Forgot password ?</a>'
             });
         });
     </script>

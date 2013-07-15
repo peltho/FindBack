@@ -16,7 +16,7 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
-                #login_path: /
+                login_path: /
                 #check_path: /login_check
                 csrf_provider: form.csrf_provider
             logout:       true
