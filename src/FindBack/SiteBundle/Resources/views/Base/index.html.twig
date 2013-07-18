@@ -7,25 +7,30 @@
 
 {% block body %}
 
-    <div class="overlay">
-
-        <div class="content">
-            <div class="dialog">
-                <h4>Inscrivez-vous gratuitement</h4>
-                 {{ render(controller('FOSUserBundle:Registration:register')) }}
-            </div>
-
-            <div class="legend">
-                <p>Vous avez fait une rencontre lors d'un évenement marquant, <br />
-                Mais vous n'avez pas pu échanger vos coordonnées ?<br />
-                Vous souhaitez le ou la retrouver ?<br />
-                Il ou Elle vous recherche peut-être...</p>
-                <h1>FindBack est là pour vous !</h1>
-
-                <div class="counter"><p>Déjà <span class="color">34104</span> personnes se sont retrouvées !</p></div>
-            </div>
+    <div class="overlay">  
+        <div class="dialog">
+            <h4>Inscrivez-vous gratuitement</h4>
+             {{ render(controller('FOSUserBundle:Registration:register')) }}
         </div>
 
+        <div class="legend">
+            <p>Vous avez fait une rencontre lors d'un évenement marquant, <br />
+            Mais vous n'avez pas pu échanger vos coordonnées ?<br />
+            Vous souhaitez le ou la retrouver ?<br />
+            Il ou Elle vous recherche peut-être...</p>
+            <h1>FindBack est là pour vous !</h1>
+
+            <div class="counter"><p>Déjà <span class="color">34104</span> personnes se sont retrouvées !</p></div>
+        </div>
+
+        <div class="footer">
+            <ul>
+                <li><a href="#">Confidentialité</a></li>
+                <li><a href="#">Conditions</a></li>
+                <li><a href="#">À propos</a></li>
+            </ul>
+            <p>© 2013 FindBack</p>
+        </div>
     </div>
 
 {% endblock %}
@@ -47,6 +52,13 @@
                 trigger: "click",
                 html: true,
                 'content': '<a href="#">Mot de passe oublié ?</a>'
+            });
+
+            $('#fos_user_registration_form_birthdate').datepicker({
+                changeYear: true,
+                yearRange: "1950:Now",
+                maxDate: "Now-18Y",
+                dateFormat: "dd/mm/yy"
             });
         });
     </script>

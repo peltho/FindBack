@@ -15,5 +15,12 @@ FindBack\SiteBundle\Entity\User:
             length: 255
         birthdate:
             type: date
+            nullable: true
         gender:
-            type: text
+            type: string
+            length: 255
+            nullable: true
+        facebookId:
+            type: string
+            length: 255
+            nullable: true

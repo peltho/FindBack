@@ -4,6 +4,7 @@
 namespace FindBack\SiteBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
@@ -30,6 +31,20 @@ class User extends BaseUser
      */
     private $lastname;
 
+    /**
+     * @var \DateTime
+     */
+    private $birthdate;
+
+    /**
+     * @var string
+     */
+    private $gender;
+
+    /**
+     * @var string
+     */
+    protected $facebookId;
 
     /**
      * Get id
@@ -86,11 +101,6 @@ class User extends BaseUser
     {
         return $this->lastname;
     }
-    /**
-     * @var \DateTime
-     */
-    private $birthdate;
-
 
     /**
      * Set birthdate
@@ -114,11 +124,6 @@ class User extends BaseUser
     {
         return $this->birthdate;
     }
-    /**
-     * @var string
-     */
-    private $gender;
-
 
     /**
      * Set gender
@@ -141,5 +146,66 @@ class User extends BaseUser
     public function getGender()
     {
         return $this->gender;
+    }
+
+    public function serialize()
+    {
+        return serialize(array($this->facebookId, parent::serialize()));
+    }
+
+    public function unserialize($data)
+    {
+        list($this->facebookId, $parentData) = unserialize($data);
+        parent::unserialize($parentData);
+    }
+
+    /**
+     * Get the full name of the user (first + last name)
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getFirstname() . ' ' . $this->getLastname();
+    }
+
+    /**
+     * @param string $facebookId
+     * @return void
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
+        $this->setUsername($facebookId);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * @param Array
+     */
+    public function setFBData($fbdata)
+    {
+        if (isset($fbdata['id'])) {
+            $this->setFacebookId($fbdata['id']);
+            $this->addRole('ROLE_FACEBOOK');
+        }
+        if (isset($fbdata['first_name'])) {
+            $this->setFirstname($fbdata['first_name']);
+        }
+        if (isset($fbdata['last_name'])) {
+            $this->setLastname($fbdata['last_name']);
+        }
+        if (isset($fbdata['gender'])) {
+            $this->setGender($fbdata['gender']);
+        }
+        /*if (isset($fbdata['birthday'])) {
+            $this->setBirthdate($fbdata['birthday']);
+        }*/
     }
 }

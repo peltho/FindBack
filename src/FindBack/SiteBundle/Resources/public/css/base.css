@@ -57,8 +57,8 @@ select, label, .btn, textarea, input[type="submit"], input[type="text"], input[t
 }
 
 section {
-    width: 1100px;
-    background-color: #FDFDFD;
+    width: 1000px;
+    background-color: #FAFAFA;
     overflow: hidden;
     padding: 30px;
     position: relative;
@@ -74,4 +74,30 @@ section {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+input::-webkit-input-placeholder {
+   color: #555;
+}
+
+input::-moz-placeholder { /* Firefox 18- */
+   color: #555;
+}
+
+input::-moz-placeholder {  /* Firefox 19+ */
+   color: #555;
+}
+
+input::-ms-input-placeholder {  
+   color: #555; 
+}
+
+#map {
+    height: 300px;
+}
+
+ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 5px;
 }

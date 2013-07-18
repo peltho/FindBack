@@ -8,8 +8,13 @@ security:
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
+        chain_provider:
+            chain:
+                providers: [fos_userbundle, fos_facebook_provider]
         fos_userbundle:
             id: fos_user.user_provider.username_email
+        fos_facebook_provider:
+            id: facebook.user
 
     firewalls:
         main:
@@ -17,8 +22,13 @@ security:
             form_login:
                 provider: fos_userbundle
                 login_path: /
-                #check_path: /login_check
                 csrf_provider: form.csrf_provider
+            fos_facebook:
+                app_url: "http://apps.facebook.com/FindBack/"
+                server_url: "http://localhost/FindBack/web/app_dev.php"
+                login_path: /
+                check_path: /login_fb_check
+                provider: fos_facebook_provider
             logout:       true
             anonymous:    true
 
@@ -27,3 +37,5 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/secured/.*, role: [IS_AUTHENTICATED_FULLY] } # This is the route secured with fos_facebook
+        - { path: ^/.*, role: [IS_AUTHENTICATED_ANONYMOUSLY] }
