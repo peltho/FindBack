@@ -10,7 +10,7 @@
     <div class="overlay">  
         <div class="dialog">
             <h4>Inscrivez-vous gratuitement</h4>
-             {{ render(controller('FOSUserBundle:Registration:register')) }}
+            {#{{ render(controller('FOSUserBundle:Registration:register')) }}#}
         </div>
 
         <div class="legend">
@@ -37,7 +37,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript">
+    {#<script type="text/javascript">
         $(function () {
 
             $('input[name="fos_user_registration_form[username]"]').removeAttr('required').hide();
@@ -61,5 +61,5 @@
                 dateFormat: "dd/mm/yy"
             });
         });
-    </script>
+    </script>#}
 {% endblock %}
