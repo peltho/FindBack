@@ -1,16 +1,28 @@
 {% extends "::base.html.twig" %}
 
+{% block user %}
+    <div class="user">
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <p class="alert alert-success flash">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ flashMessage }}
+            </p>
+        {% endfor %}
+        <a href="{{ path('logout') }}" class="btn">Déconnexion</a>
+    </div>
+{% endblock %}
+
 {% block body %}
 
     <section>
 
-    	<div>
-    		<ul>
-    			<li><button class="btn">Rechercher quelqu'un</button></li>
-    		</u>
-    	</div>
+        <div>
+            <ul>
+                <li><button class="btn">Rechercher quelqu'un</button></li>
+            </ul>
+        </div>
 
-    	<div id="map"></div>
+        <div id="map"></div>
 
     </section>
 
@@ -24,7 +36,7 @@
         var map = L.map('map').setView([43.5263, 5.44539], 12);
 
         L.tileLayer('http://{s}.tile.cloudmade.com/2254cc037a6b4a789dba36d97d29b136/997/256/{z}/{x}/{y}.png', {
-            maxZoom: 18,
+            maxZoom: 18
         }).addTo(map);
 
         var popup = L.popup();

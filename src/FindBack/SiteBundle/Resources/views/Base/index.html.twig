@@ -5,19 +5,45 @@
     <link href="{{ asset('bundles/findbacksite/css/first.page.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
 
+{% block user %}
+    <div class="user">
+        {# Message affichant la réussite de l'inscription #}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <p class="alert alert-success flash">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ flashMessage }}
+            </p>
+        {% endfor %}
+        {# Message d'erreur de connexion #}
+        {% if error %}
+            <div class="alert alert-error">{{ error.message|trans }}</div>
+        {% endif %}
+        {# Formulaire de connexion #}
+        <form action="{{ path('login_check') }}" method="post" class="navbar-form pull-right">
+            <input type="email" class="span2" name="_username" placeholder="Adresse email" value="{{ last_username }}" />
+            <input type="password" class="span2" name="_password" placeholder="Mot de passe" />
+            <input class="btn" type="submit" value="Connexion" />
+        </form>
+        <button class="btn settings" style="margin-left:4px;" rel="popover" data-toggle="popover" data-container="body"><i class="icon-cog"></i></button>
+    </div>
+{% endblock %}
+
 {% block body %}
 
-    <div class="overlay">  
+    <div class="overlay">
         <div class="dialog">
             <h4>Inscrivez-vous gratuitement</h4>
-            {#{{ render(controller('FOSUserBundle:Registration:register')) }}#}
+            <form action="{{ path('register_check')}}" method="post" {{ form_enctype(form) }}>
+                {{ form_widget(form) }}
+                <div align="center" style="margin-top: 10px;"><input class="btn btn-primary" type="submit" /></div>
+            </form>
         </div>
 
         <div class="legend">
             <p>Vous avez fait une rencontre lors d'un évenement marquant, <br />
-            Mais vous n'avez pas pu échanger vos coordonnées ?<br />
-            Vous souhaitez le ou la retrouver ?<br />
-            Il ou Elle vous recherche peut-être...</p>
+                Mais vous n'avez pas pu échanger vos coordonnées ?<br />
+                Vous souhaitez le ou la retrouver ?<br />
+                Il ou Elle vous recherche peut-être...</p>
             <h1>FindBack est là pour vous !</h1>
 
             <div class="counter"><p>Déjà <span class="color">34104</span> personnes se sont retrouvées !</p></div>
@@ -37,14 +63,8 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {#<script type="text/javascript">
+    <script type="text/javascript">
         $(function () {
-
-            $('input[name="fos_user_registration_form[username]"]').removeAttr('required').hide();
-            $('form.fos_user_registration_register').submit(function () {
-                var val = $('input[name="fos_user_registration_form[email][first]"]').val();
-                $('input[name="fos_user_registration_form[username]"]').val(val);
-            });
 
             $('.settings').popover({
                 'title': 'Options',
@@ -54,12 +74,13 @@
                 'content': '<a href="#">Mot de passe oublié ?</a>'
             });
 
-            $('#fos_user_registration_form_birthdate').datepicker({
+            $('#registration_birthdate').datepicker({
                 changeYear: true,
                 yearRange: "1950:Now",
                 maxDate: "Now-18Y",
                 dateFormat: "dd/mm/yy"
             });
+
         });
-    </script>#}
+    </script>
 {% endblock %}

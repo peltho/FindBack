@@ -9,7 +9,7 @@ body {
     font-family: Arial,sans-serif;
 }
 
-.navbar .login {
+.navbar .user {
     overflow: hidden;
     display: inline-block;
     float: right;
@@ -18,15 +18,25 @@ body {
     position: relative;
 }
 
-.login form {
+.user form {
     display: inline-block;
     float: left;
 }
 
-.login p {
+.user p {
     display: inline-block;
-    color: #fff;
-    margin-top: 10px;
+    padding: 2px 35px 1px 35px;
+    line-height: 25px;
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-bottom: 0;
+    font-size: 12px;
+    float: left;
+}
+
+.alert .close {
+    top: 1px;
+    font-size: 12px;
 }
 
 .navbar-inner h3 {

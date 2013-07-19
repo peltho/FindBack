@@ -19,9 +19,8 @@
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <h3><a href="{{ path('find_back_site_homepage') }}">FindBack</a></h3>
-                <div class="login">
-
-                </div>
+                {% block user %}
+                {% endblock %}
             </div>
         </div>
         {% endblock %}

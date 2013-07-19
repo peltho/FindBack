@@ -1,7 +1,8 @@
 parameters:
-#    find_back_site.example.class: FindBack\SiteBundle\Example
+    login.success_handler.class: FindBack\SiteBundle\Handler\LoginSuccessHandler
 
 services:
-#    find_back_site.example:
-#        class: %find_back_site.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    login.success_handler:
+        class: %login.success_handler.class%
+        public: false
+        arguments:  ['@router', '@doctrine.orm.entity_manager', '@service_container' ]
