@@ -1,8 +1,13 @@
 parameters:
     login.success_handler.class: FindBack\SiteBundle\Handler\LoginSuccessHandler
+    logout.success_handler.class: FindBack\SiteBundle\Handler\LogoutSuccessHandler
 
 services:
     login.success_handler:
         class: %login.success_handler.class%
         public: false
         arguments:  ['@router', '@doctrine.orm.entity_manager', '@service_container' ]
+    logout.success_handler:
+            class: %logout.success_handler.class%
+            public: false
+            arguments:  ['@router', '@doctrine.orm.entity_manager', '@service_container' ]

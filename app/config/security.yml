@@ -27,6 +27,7 @@ security:
                 path:   /logout
                 target: /
                 invalidate_session: false # PHP Bug
+                success_handler: logout.success_handler
             anonymous:    true
             remember_me:
                 key:      "%secret%"

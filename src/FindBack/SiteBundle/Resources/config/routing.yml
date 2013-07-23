@@ -2,12 +2,24 @@ find_back_site_homepage:
     pattern:  /
     defaults: { _controller: FindBackSiteBundle:Base:index }
 
-login_check:
-    pattern:   /login_check
-
 register_check:
-   pattern:  /register_check
-   defaults: { _controller: FindBackSiteBundle:Base:create }
+    pattern:  /register_check
+    defaults: { _controller: FindBackSiteBundle:Base:create }
+
+login_check:
+    pattern:  /login_check
 
 logout:
-   pattern:   /logout
+    pattern:  /logout
+
+account:
+    pattern:  /account
+    defaults: { _controller: FindBackSiteBundle:User:index }
+
+search:
+    pattern:  /search
+    defaults: { _controller: FindBackSiteBundle:Search:index }
+
+wanted:
+    pattern:  /wanted
+    defaults: { _controller: FindBackSiteBundle:Wanted:index }

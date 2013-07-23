@@ -28,7 +28,7 @@
 .dialog form {
     color: #555;
     padding: 30px 30px 0 30px;
-    background-image: url('../images/border-bottom-x.png');
+    background-image: url('../images/border-box.png');
     background-repeat: repeat-x;
     background-position: top;
 }
