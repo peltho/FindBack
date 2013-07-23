@@ -1,35 +1,38 @@
 <?php
-// src/FindBack/SiteBundle/Entity/User.php
 
 namespace FindBack\SiteBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-/**
- * User
- */
-class User extends BaseUser
+class User implements AdvancedUserInterface, EquatableInterface
 {
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-    }
     /**
      * @var integer
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      */
-    private $firstname;
+    private $username;
 
     /**
      * @var string
      */
     private $lastname;
+
+    /**
+     * @var string
+     */
+    private $password;
+
+    /**
+     * @var string
+     */
+    private $email;
 
     /**
      * @var \DateTime
@@ -44,7 +47,18 @@ class User extends BaseUser
     /**
      * @var string
      */
-    protected $facebookId;
+    private $salt;
+
+    /**
+     * @var boolean
+     */
+    private $isActive;
+
+    public function __construct()
+    {
+        $this->isActive = true;
+        $this->salt = md5(uniqid(null, true));
+    }
 
     /**
      * Get id
@@ -57,26 +71,26 @@ class User extends BaseUser
     }
 
     /**
-     * Set firstname
+     * Set username
      *
-     * @param string $firstname
+     * @param string $username
      * @return User
      */
-    public function setFirstname($firstname)
+    public function setUsername($username)
     {
-        $this->firstname = $firstname;
+        $this->username = $username;
     
         return $this;
     }
 
     /**
-     * Get firstname
+     * Get username
      *
      * @return string 
      */
-    public function getFirstname()
+    public function getUsername()
     {
-        return $this->firstname;
+        return $this->username;
     }
 
     /**
@@ -100,6 +114,52 @@ class User extends BaseUser
     public function getLastname()
     {
         return $this->lastname;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
@@ -148,64 +208,107 @@ class User extends BaseUser
         return $this->gender;
     }
 
-    public function serialize()
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return User
+     */
+    public function setSalt($salt)
     {
-        return serialize(array($this->facebookId, parent::serialize()));
-    }
-
-    public function unserialize($data)
-    {
-        list($this->facebookId, $parentData) = unserialize($data);
-        parent::unserialize($parentData);
+        $this->salt = $salt;
+    
+        return $this;
     }
 
     /**
-     * Get the full name of the user (first + last name)
-     * @return string
+     * Get salt
+     *
+     * @return string 
      */
-    public function getFullName()
+    public function getSalt()
     {
-        return $this->getFirstname() . ' ' . $this->getLastname();
+        return $this->salt;
     }
 
     /**
-     * @param string $facebookId
-     * @return void
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return User
      */
-    public function setFacebookId($facebookId)
+    public function setIsActive($isActive)
     {
-        $this->facebookId = $facebookId;
-        $this->setUsername($facebookId);
+        $this->isActive = $isActive;
+    
+        return $this;
     }
 
     /**
-     * @return string
+     * Get isActive
+     *
+     * @return boolean 
      */
-    public function getFacebookId()
+    public function getIsActive()
     {
-        return $this->facebookId;
+        return $this->isActive;
     }
 
     /**
-     * @param Array
+     * @return array|\Symfony\Component\Security\Core\User\Role[]
      */
-    public function setFBData($fbdata)
+    public function getRoles()
     {
-        if (isset($fbdata['id'])) {
-            $this->setFacebookId($fbdata['id']);
-            $this->addRole('ROLE_FACEBOOK');
-        }
-        if (isset($fbdata['first_name'])) {
-            $this->setFirstname($fbdata['first_name']);
-        }
-        if (isset($fbdata['last_name'])) {
-            $this->setLastname($fbdata['last_name']);
-        }
-        if (isset($fbdata['gender'])) {
-            $this->setGender($fbdata['gender']);
-        }
-        /*if (isset($fbdata['birthday'])) {
-            $this->setBirthdate($fbdata['birthday']);
-        }*/
+        return array('ROLE_USER');
     }
+
+    /**
+     * @param UserInterface $user
+     * @return bool
+     */
+    public function isEqualTo(UserInterface $user)
+    {
+        if (!$user instanceof User) {
+            return false;
+        }
+
+        if ($this->password !== $user->getPassword()) {
+            return false;
+        }
+
+        if ($this->getSalt() !== $user->getSalt()) {
+            return false;
+        }
+
+        if ($this->username !== $user->getUsername()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
+
 }

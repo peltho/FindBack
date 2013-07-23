@@ -14,22 +14,13 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+        {#{{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}#}
         {% block header %}
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <h3><a href="{{ path('find_back_site_homepage') }}">FindBack</a></h3>
-                <div class="login">
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <p>Bienvenue {{ app.user.firstname }}</p>
-                        <a href="{{ path('fos_user_security_logout') }}" class="btn logout">
-                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                        </a>
-                    {% else %}
-                        {{ render(controller('FOSUserBundle:Security:login')) }}
-                        {{ facebook_login_button({ 'autologoutlink': false, 'size': 'large' }) }}
-                    {% endif %}
-                </div>
+                {% block user %}
+                {% endblock %}
             </div>
         </div>
         {% endblock %}
@@ -41,7 +32,7 @@
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/bootstrap.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/fanforfunleaflet/js/leaflet.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/base.js') }}"></script>
-            <script type="text/javascript">
+            {#<script type="text/javascript">
                 function goLogIn(){
                     window.location.href = "{{ path('_security_check') }}";
                 }
@@ -57,7 +48,7 @@
                         });
                     }
                 }
-            </script>
+            </script>#}
             {% if form is defined %}{{ form_javascript(form) }}{% endif %}
         {% endblock %}
     </body>

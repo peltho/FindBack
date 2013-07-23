@@ -28,9 +28,21 @@
 .dialog form {
     color: #555;
     padding: 30px 30px 0 30px;
-    background-image: url('../images/border-bottom-x.png');
+    background-image: url('../images/border-box.png');
     background-repeat: repeat-x;
     background-position: top;
+}
+
+.dialog form ul li {
+    font-size: 11px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    background-color: #f2dede;
+    border: 1px solid #eed3d7;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #b94a48;
+    margin: 0;
 }
 
 .dialog h4 {

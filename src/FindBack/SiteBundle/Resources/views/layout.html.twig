@@ -1,0 +1,39 @@
+{% extends "::base.html.twig" %}
+
+{% block user %}
+    <div class="user">
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <p class="alert alert-success flash">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ flashMessage }}
+            </p>
+        {% endfor %}
+        <div class="btn-group">
+            <a href="{{ path('account') }}" class="btn">{{ app.user.username }}</a>
+            <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <section>
+        <article>
+            <div class="top">{{ block ('left_title') }}</div>
+            <div class="content">
+                {{ block ('left_content') }}
+            </div>
+        </article>
+        <aside>
+            <div class="top">{{ block ('right_title') }}</div>
+            <div class="content">
+                {{ block ('right_content') }}
+            </div>
+            {{ block ('right_content2') }}
+        </aside>
+    </section>
+{% endblock %}

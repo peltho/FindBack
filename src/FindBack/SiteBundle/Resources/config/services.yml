@@ -1,13 +1,13 @@
 parameters:
-#    find_back_site.example.class: FindBack\SiteBundle\Example
+    login.success_handler.class: FindBack\SiteBundle\Handler\LoginSuccessHandler
+    logout.success_handler.class: FindBack\SiteBundle\Handler\LogoutSuccessHandler
 
 services:
-#    find_back_site.example:
-#        class: %find_back_site.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
-
-    find_back_user.registration.form.type:
-        class: FindBack\SiteBundle\Form\Type\RegistrationFormType
-        arguments: [%fos_user.model.user.class%]
-        tags:
-            - { name: form.type, alias: find_back_user_registration }
+    login.success_handler:
+        class: %login.success_handler.class%
+        public: false
+        arguments:  ['@router', '@doctrine.orm.entity_manager', '@service_container' ]
+    logout.success_handler:
+            class: %logout.success_handler.class%
+            public: false
+            arguments:  ['@router', '@doctrine.orm.entity_manager', '@service_container' ]

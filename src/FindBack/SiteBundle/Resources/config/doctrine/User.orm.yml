@@ -1,16 +1,23 @@
 FindBack\SiteBundle\Entity\User:
     type:  entity
-    table: fos_user
+    repositoryClass: FindBack\SiteBundle\Entity\UserRepository
+    table: users
     id:
         id:
             type: integer
             generator:
                 strategy: AUTO
     fields:
-        firstname:
+        username:
             type: string
             length: 255
         lastname:
+            type: string
+            length: 255
+        password:
+            type: string
+            length: 255
+        email:
             type: string
             length: 255
         birthdate:
@@ -20,7 +27,15 @@ FindBack\SiteBundle\Entity\User:
             type: string
             length: 255
             nullable: true
-        facebookId:
+        salt:
             type: string
-            length: 255
-            nullable: true
+            length: 32
+        isActive:
+            type: boolean
+        #facebookId:
+        #    type: string
+        #    length: 255
+        #    nullable: true
+    uniqueConstraints:
+            email_idx:
+                columns: email

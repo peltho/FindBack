@@ -1,31 +1,25 @@
 find_back_site_homepage:
     pattern:  /
     defaults: { _controller: FindBackSiteBundle:Base:index }
-# comment below to display errors, it must be at most one route to /
 
-_security_check:
-    pattern:  /login_fb_check
-_security_logout:
+register_check:
+    pattern:  /register_check
+    defaults: { _controller: FindBackSiteBundle:Base:create }
+
+login_check:
+    pattern:  /login_check
+
+logout:
     pattern:  /logout
-_facebook_secured:
-    pattern: /
-    defaults: { _controller: FindBackSiteBundle:Base:index }
 
-fos_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+account:
+    pattern:  /account
+    defaults: { _controller: FindBackSiteBundle:User:index }
 
-fos_user_profile:
-    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /profile
+search:
+    pattern:  /search
+    defaults: { _controller: FindBackSiteBundle:Search:index }
 
-fos_user_register:
-    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
-
-fos_user_resetting:
-    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
-
-fos_user_change_password:
-    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile
+wanted:
+    pattern:  /wanted
+    defaults: { _controller: FindBackSiteBundle:Wanted:index }

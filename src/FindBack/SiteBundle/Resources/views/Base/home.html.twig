@@ -1,42 +1,78 @@
-{% extends "::base.html.twig" %}
+{% extends "FindBackSiteBundle::layout.html.twig" %}
 
-{% block body %}
+{% block left_title %}
+    <h5>Accueil</h5>
+{% endblock %}
+{% block left_content %}
+    <div class="buttons">
+        <a class="search-btn" style="margin-right: 20px;" href="{{ path('search') }}">Poster un avis de recherche</a>
+        <a class="search-btn" href="{{ path('wanted') }}">Êtes-vous recherché ?</a>
+    </div>
+    <div class="well" style="margin:20px 30px;">
+        <button type="button" class="close" style="font-size: 15px;" data-dismiss="alert">&times;</button>
+        <p>
+            Lors d'une <strong>soirée</strong> ? Sur votre <strong>lieu de travail</strong> ?<br />
+            Vous avez fait la rencontre d'une personne intéressante mais vous n'avez pas échangé vos coordonnées ? Vous avez oublié son nom ?<br />
+            <strong>Postez un avis de recherche !</strong><br />
+            Indiquez le lieu, la date et l'heure, ainsi que tout autre renseignement utile permettant de l'identifier.<br />
+            Nous essaierons de vous mettre en relation !
+        </p>
+        <p>
+            Pour optimiser vos chances de savoir si <strong>vous êtes recherché</strong>, il est nécessaire d'indiquer un évenement auquel vous avez assisté et dans lequel  il est susceptible qu'une personne vous recherche.
+        </p>
+    </div>
+{% endblock %}
+{% block right_title %}
+    <h5>Derniers avis de recherche à</h5>
+{% endblock %}
+{% block right_content %}
+    <a href="#" data-toggle="collapse" data-target="#wanted" class="town_label">
+        <span class="label">Aix-en-Provence</span>
+    </a>
+    <div id="wanted" class="collapse in">
+        <ul class="last_wanted">
+            <li><i class="icon-chevron-right"></i> <span class="badge">{{ "NOW"|date('d M') }}</span> <a href="#">Un homme au <b>Mistral</b></a></li>
+            <li><i class="icon-chevron-right"></i> <span class="badge">19 Jul</span> <a href="#">Une femme à la <b>Verrerie</b></a></li>
+        </ul>
+    </div>
+    <a href="#" data-toggle="collapse" data-target="#wanted2" class="town_label">
+        <span class="label">Marseille</span>
+    </a>
+    <div id="wanted2" class="collapse in">
+        <ul class="last_wanted">
+            <li><i class="icon-chevron-right"></i> <span class="badge">19 Jul</span> <a href="#">Une femme au <b>Barberousse</b></a></li>
+            <li><i class="icon-chevron-right"></i> <span class="badge">18 Jul</span> <a href="#">Un homme à <b>IPN</b></a></li>
+        </ul>
+    </div>
+{% endblock %}
 
-    <section>
-
-    	<div>
-    		<ul>
-    			<li><button class="btn">Rechercher quelqu'un</button></li>
-    		</u>
-    	</div>
-
-    	<div id="map"></div>
-
-    </section>
-
+{% block right_content2 %}
+    <h5>Ville la plus active</h5>
 {% endblock %}
 
 {% block javascripts %}
-{{ parent () }}
+    {{ parent () }}
+    <script type="text/javascript">
+        $(function () {
+            $('div[id*="wanted"]').collapse('hide'); // À remplacer par #wanted
+            {#
+            var map = L.map('map').setView([43.5263, 5.44539], 12);
 
-<script type="text/javascript">
+            L.tileLayer('http://{s}.tile.cloudmade.com/2254cc037a6b4a789dba36d97d29b136/997/256/{z}/{x}/{y}.png', {
+                maxZoom: 18
+            }).addTo(map);
 
-        var map = L.map('map').setView([43.5263, 5.44539], 12);
+            var popup = L.popup();
 
-        L.tileLayer('http://{s}.tile.cloudmade.com/2254cc037a6b4a789dba36d97d29b136/997/256/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-        }).addTo(map);
+            function onMapClick(e) {
+                popup
+                        .setLatLng(e.latlng)
+                        .setContent("Localisation : " + e.latlng.toString())
+                        .openOn(map);
+            }
 
-        var popup = L.popup();
-
-        function onMapClick(e) {
-            popup
-                .setLatLng(e.latlng)
-                .setContent("Localisation : " + e.latlng.toString())
-                .openOn(map);
-        }
-
-        map.on('click', onMapClick);
-
-</script>
+            map.on('click', onMapClick);
+            #}
+        });
+    </script>
 {% endblock %}

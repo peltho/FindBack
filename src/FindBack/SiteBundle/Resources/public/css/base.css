@@ -6,11 +6,11 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    font-size: 12px;
     font-family: Arial,sans-serif;
 }
 
-.navbar .login {
-    overflow: hidden;
+.navbar .user {
     display: inline-block;
     float: right;
     margin-top: 5px;
@@ -18,15 +18,38 @@ body {
     position: relative;
 }
 
-.login form {
+.user form {
     display: inline-block;
     float: left;
 }
 
-.login p {
+.btn:first-child {
+    min-width: 100px;
+}
+
+.dropdown-menu {
+    min-width: 0;
+    background-color: #FAFAFA;
+}
+
+.dropdown-menu a {
+    font-size: 11px;
+}
+
+.user p {
     display: inline-block;
-    color: #fff;
-    margin-top: 10px;
+    padding: 2px 35px 1px 35px;
+    line-height: 25px;
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-bottom: 0;
+    font-size: 12px;
+    float: left;
+}
+
+.alert .close {
+    top: 1px;
+    font-size: 12px;
 }
 
 .navbar-inner h3 {
@@ -48,8 +71,9 @@ body {
     border: none;
 }
 
-select, label, .btn, textarea, input[type="submit"], input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+select, label, .btn, .btn-group>.btn, btn-group>.dropdown-menu, textarea, input[type="submit"], input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     font-size: 12px;
+    vertical-align: top;
 }
 
 .color {
@@ -60,7 +84,6 @@ section {
     width: 1000px;
     background-color: #FAFAFA;
     overflow: hidden;
-    padding: 30px;
     position: relative;
     margin: 100px auto 0;
     -webkit-border-radius: 5px;
@@ -100,4 +123,139 @@ ul li {
     list-style: none;
     display: inline-block;
     margin: 0 5px;
+}
+
+.top {
+    position: relative;
+    float:left;
+    background: url('../images/border-bottom-x.png') bottom repeat-x #E8E8E7;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 20px;
+}
+
+article {
+    overflow: hidden;
+    position: relative;
+    float:left;
+    width: 700px;
+}
+
+article .content {
+    padding: 10px;
+    margin-top: 30px;
+}
+
+article .content div {
+    margin-top: 10px;
+}
+
+aside {
+    position: relative;
+    float: left;
+    width: 300px;
+}
+
+aside .top {
+    height: 40px;
+    padding: 0;
+    background: url('../images/border-top-right.png') left bottom no-repeat #E8E8E7;
+    margin-bottom: 20px;
+}
+
+aside .content {
+    margin-top: 40px;
+    background: url('../images/border-bottom-left.png'), url('../images/border-left-y.png'), url('../images/border-bottom-x.png');
+    background-position: bottom left, left, bottom;
+    background-repeat: no-repeat, repeat-y, repeat-x;
+    background-color: #E8E8E7;
+    padding: 10px;
+}
+
+h5 {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+article .top h5 {
+    margin-top: 0;
+}
+
+aside h5 {
+    border-bottom: 1px solid #C9C9C8;
+}
+
+aside ul li {
+    margin: 0;
+    font-size: 12px;
+}
+
+/*#wanted*/div[id*="wanted"] a {
+   color: #000;
+}
+div[id*="wanted"] ul {
+    margin: 20px 0;
+}
+div[id*="wanted"] ul:last-child li {
+    margin-bottom: 10px;
+}
+aside {
+    word-break:break-all;
+}
+
+.search-btn {
+    display: inline-block;
+    width: 300px;
+    padding: 15px 20px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #0066CC;
+    text-shadow: #000 0 1px 2px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: rgba(0,0,0,0.8) 0px 1px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.8) 0px 1px 3px;
+    box-shadow: rgba(0,0,0,0.8) 0px 1px 3px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #3A87AD;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.search-btn:hover {
+    text-decoration: none;
+    background-color: #34799b;
+    color: #fff;
+}
+
+[class^="icon-"] {
+    margin-top: 0;
+}
+
+aside .label {
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.town_label {
+    display: block;
+    text-align: center;
+}
+
+.last_wanted .badge {
+    font-size: 9px;
+    font-weight: normal;
+    background-color: #333;
+    color: #E8E8E7;
 }

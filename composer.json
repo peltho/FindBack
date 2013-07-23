@@ -35,9 +35,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
 
         "fanforfun/leaflet-bundle": "dev-master",
-        "friendsofsymfony/user-bundle": "~2.0@dev",
-        "genemu/form-bundle": "2.2.*",
-        "friendsofsymfony/facebook-bundle": "1.2.*"
+        "genemu/form-bundle": "2.2.*"
     },
     "scripts": {
         "post-install-cmd": [

@@ -1,0 +1,30 @@
+{% extends "FindBackSiteBundle::layout.html.twig" %}
+
+{% block left_title %}
+    <h5>Quelqu'un vous recherche-t-il ?</h5>
+{% endblock %}
+
+{% block left_content %}
+    <div class="well" style="margin:20px 30px;">
+        <button type="button" class="close" style="font-size: 15px;" data-dismiss="alert">&times;</button>
+        <p>
+            Afin de pouvoir vous mettre en relation avec des personnes qui seraient à votre recherche, nous vous demandons de bien vouloir renseigner des informations supplémentaires concernant votre profil.<br />
+            Une <b>description physique</b> de vous-même, ainsi que les <b>lieux fréquentés</b> en soirée.
+        </p>
+    </div>
+    <h5>Effectuer une vérification instantanée</h5>
+    <form align="center">
+        <input type="text" placeholder="Où étiez-vous ?" />
+        <input type="text" placeholder="Quand ?" />
+        <button class="btn"><i class="icon-plus"></i></button>
+        <button class="btn btn-success"><i class="icon-search icon-white"></i></button>
+    </form>
+{% endblock %}
+
+{% block right_title %}
+    <h5>Est-ce vous ?</h5>
+{% endblock %}
+
+{% block right_content %}
+    <p>// Lieux fréquentés</p>
+{% endblock %}
