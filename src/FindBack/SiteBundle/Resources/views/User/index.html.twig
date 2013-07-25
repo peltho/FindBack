@@ -1,12 +1,79 @@
 {% extends "FindBackSiteBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .infos {
+            position: relative;
+            float: left;
+        }
+        .well {
+            width: 275px;
+        }
+        .identity, .sub-identity {
+            width: 120px;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .sub-identity {
+            margin-left: 10px;
+            width: 110px;
+        }
+        aside button {
+            width: 200px;
+        }
+    </style>
+{% endblock %}
+
 {% block left_title %}
-    <h5>Mon compte</h5>
+    <h5><i class="icon-user"></i> Mon compte</h5>
 {% endblock %}
 {% block left_content %}
-
+    <p class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        Les informations suivies du sigle <i class="icon-eye-close"></i> ne sont pas visibles par autrui.<br />
+        Pour visualiser de quelle manière un utilisateur lambda voit votre profil, cliquez sur le bouton associé dans l'espace de droite.
+    </p>
+    <div class="infos">
+        <h5>Informations personnelles</h5>
+        <ul class="well">
+            <li><span class="identity">Nom</span>{{ firstname }} {{ lastname }}</li>
+            <li><span class="identity">Âge</span>{{ age }} ans</li>
+            <li><span class="identity">Recherches</span>3</li>
+            <li><span class="identity">Retrouvailles</span>1</li>
+            <li><span class="identity">Email <i class="icon-eye-close"></i></span><a href="mailto:{{ email }}">{{ email }}</a></li>
+            <li><span class="identity">Facebook</span><a href="{{ FBPage }}" target="_blank">Profil</a></li>
+            <li><span class="identity">Site Web</span><a href="#" target="_blank">www.findback.com</a></li>
+        </ul>
+    </div>
+    <div class="infos" style="float:right;">
+        <h5>Description physique</h5>
+        <ul class="well">
+            <li><span class="identity">Sexe</span>{{ gender|trans }}</li>
+            <li><span class="identity">Taille</span>1m80</li>
+            <li><span class="identity">Type</span>Européen</li>
+            <li><span class="identity">Cheveux</span>Bruns</li>
+            <li><span class="identity">Coupe</span>Courts</li>
+            <li><span class="identity">Tatouage</span>Oui
+                <ul>
+                    <li><span class="sub-identity">Emplacement</span>Bras</li>
+                    <li><span class="sub-identity">Motif</span>Tribal</li>
+                </ul>
+            </li>
+            <li><span class="identity">Piercing</span>Non</li>
+        </ul>
+    </div>
 {% endblock %}
 
 {% block right_title %}
-    <h5>...</h5>
+    <h5><i class="icon-edit"></i> Mettre à jour</h5>
+{% endblock %}
+
+{% block right_content %}
+    <div align="center">
+        <p><button class="btn"><b>Éditer mes informations</b></button></p>
+        <p><button class="btn btn-primary"><b>Voir mon profil public</b></button></p>
+        <p><button class="btn btn-danger"><b>Supprimer mon compte</b></button></p>
+    </div>
 {% endblock %}

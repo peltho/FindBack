@@ -52,4 +52,11 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     {
         return $this->getEntityName() === $class || is_subclass_of($class, $this->getEntityName());
     }
+
+    protected function findUserBy(array $criteria)
+    {
+        $userRepository = $this->getEntityManager()->getRepository('FindBack\SiteBundle\Entity\User');
+        return $userRepository->findOneBy($criteria);
+    }
+
 }

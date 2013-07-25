@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new FindBack\SiteBundle\FindBackSiteBundle(),
             new Fanforfun\LeafletBundle\FanforfunLeafletBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+            new FOS\FacebookBundle\FOSFacebookBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

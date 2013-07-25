@@ -20,6 +20,10 @@ FindBack\SiteBundle\Entity\User:
         email:
             type: string
             length: 255
+        facebookId:
+            type: string
+            length: 255
+            nullable: true
         birthdate:
             type: date
             nullable: true
@@ -32,6 +36,10 @@ FindBack\SiteBundle\Entity\User:
             length: 32
         isActive:
             type: boolean
+        facebookPage:
+            type: string
+            length: 255
+            nullable: true
         #facebookId:
         #    type: string
         #    length: 255

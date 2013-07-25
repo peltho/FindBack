@@ -44,7 +44,7 @@ class LogoutSuccessHandler implements LogoutSuccessHandlerInterface
 
         $this->container->get('session')->getFlashBag()->add(
             'notice',
-            'Vous êtes maintenant déconnecté.'
+            'À bientôt !'
         );
 
         return new RedirectResponse($this->router->generate('find_back_site_homepage'));

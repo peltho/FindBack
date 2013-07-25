@@ -23,6 +23,11 @@ body {
     float: left;
 }
 
+.fb_iframe_widget {
+    display: inline;
+    margin-top: 8px;
+}
+
 .btn:first-child {
     min-width: 100px;
 }
@@ -76,6 +81,14 @@ select, label, .btn, .btn-group>.btn, btn-group>.dropdown-menu, textarea, input[
     vertical-align: top;
 }
 
+.last_wanted a:hover {
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
 .color {
     color: #0066CC;
 }
@@ -97,6 +110,7 @@ section {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 input::-webkit-input-placeholder {
@@ -121,8 +135,6 @@ input::-ms-input-placeholder {
 
 ul li {
     list-style: none;
-    display: inline-block;
-    margin: 0 5px;
 }
 
 .top {
@@ -143,12 +155,13 @@ article {
 }
 
 article .content {
-    padding: 10px;
     margin-top: 30px;
+    overflow: hidden;
+    padding: 10px 30px 10px 30px;
 }
 
-article .content div {
-    margin-top: 10px;
+ul {
+    margin: 0;
 }
 
 aside {
@@ -195,10 +208,7 @@ aside ul li {
    color: #000;
 }
 div[id*="wanted"] ul {
-    margin: 20px 0;
-}
-div[id*="wanted"] ul:last-child li {
-    margin-bottom: 10px;
+    margin: 10px 0 20px 0;
 }
 aside {
     word-break:break-all;
@@ -258,4 +268,16 @@ aside .label {
     font-weight: normal;
     background-color: #333;
     color: #E8E8E7;
+}
+
+.active_city {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.active_city img {
+    width: 250px;
+    height: 150px;
+    border: 1px solid #C9C9C8;
+    border-radius: 5px;
 }

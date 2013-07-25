@@ -67,3 +67,10 @@ swiftmailer:
 genemu_form:
     select2: ~
     date: ~
+
+fos_facebook:
+    alias:  facebook
+    app_id: 377701975686045
+    secret: 8e57523db29d9909038a7861db0beb11
+    cookie: true
+    permissions: [email, user_birthday, user_location]

@@ -1,29 +1,37 @@
 {% extends "FindBackSiteBundle::layout.html.twig" %}
 
 {% block left_title %}
-    <h5>Accueil</h5>
+    <h5><i class="icon-home"></i> Accueil</h5>
 {% endblock %}
 {% block left_content %}
     <div class="buttons">
         <a class="search-btn" style="margin-right: 20px;" href="{{ path('search') }}">Poster un avis de recherche</a>
         <a class="search-btn" href="{{ path('wanted') }}">Êtes-vous recherché ?</a>
     </div>
-    <div class="well" style="margin:20px 30px;">
+    {#<div class="well" style="margin:20px 30px;">
         <button type="button" class="close" style="font-size: 15px;" data-dismiss="alert">&times;</button>
-        <p>
-            Lors d'une <strong>soirée</strong> ? Sur votre <strong>lieu de travail</strong> ?<br />
-            Vous avez fait la rencontre d'une personne intéressante mais vous n'avez pas échangé vos coordonnées ? Vous avez oublié son nom ?<br />
-            <strong>Postez un avis de recherche !</strong><br />
-            Indiquez le lieu, la date et l'heure, ainsi que tout autre renseignement utile permettant de l'identifier.<br />
-            Nous essaierons de vous mettre en relation !
-        </p>
-        <p>
-            Pour optimiser vos chances de savoir si <strong>vous êtes recherché</strong>, il est nécessaire d'indiquer un évenement auquel vous avez assisté et dans lequel  il est susceptible qu'une personne vous recherche.
-        </p>
+    #}
+    <div style="margin: 30px 30px;">
+        <hr />
+        <div>
+            <button type="button" class="close" style="margin-top:-10px;font-size: 12px;" data-dismiss="alert">&times;</button>
+            <p>
+                Lors d'une <strong>soirée</strong> ? Sur votre <strong>lieu d'études, de travail</strong> ?<br />
+                Vous avez fait la rencontre d'une personne intéressante mais vous n'avez pas échangé vos coordonnées ? Vous avez oublié son nom ?<br />
+                <strong>Postez un avis de recherche !</strong><br />
+                Indiquez le lieu, la date et l'heure, ainsi que tout autre renseignement utile permettant de l'identifier.<br />
+                Nous essaierons de vous mettre en relation !
+            </p>
+            <p>
+                Pour optimiser vos chances de savoir si <strong>vous êtes recherché</strong>, il est nécessaire d'indiquer un évenement auquel vous avez assisté et dans lequel  il est susceptible qu'une personne vous recherche.
+            </p>
+            <hr />
+        </div>
+        <h5>Guide des villes</h5>
     </div>
 {% endblock %}
 {% block right_title %}
-    <h5>Derniers avis de recherche à</h5>
+    <h5><i class="icon-search"></i> Derniers avis de recherche à</h5>
 {% endblock %}
 {% block right_content %}
     <a href="#" data-toggle="collapse" data-target="#wanted" class="town_label">
@@ -47,14 +55,44 @@
 {% endblock %}
 
 {% block right_content2 %}
-    <h5>Ville la plus active</h5>
+    <h5><i class="icon-star"></i> Ville la plus active</h5>
+    <div class="active_city">
+        <a href="#"><img src="{{ asset('bundles/findbacksite/images/aix.png') }}" alt="Aix-en-Provence" /></a>
+    </div>
+    <h5><i class="icon-map-marker"></i> The Place To Be !</h5>
+    <div style="padding:10px 20px">// Lieu ayant le plus d'avis de recherche</div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent () }}
     <script type="text/javascript">
         $(function () {
+            $('.close').tooltip({
+                placement: 'right',
+                title: 'Masquer',
+                container: 'body'
+            }).click(function () {
+                $(this).tooltip('hide');
+            });
             $('div[id*="wanted"]').collapse('hide'); // À remplacer par #wanted
+
+            var city = $('.active_city img').attr('alt');
+            var position = $('.active_city img').position();
+            var left = position.left;
+            var top = position.top - 15;
+            var cityBlock = $('<div>')
+                    .css({
+                        'position': 'relative',
+                        'top': '-85px',
+                        'font-size': '18px',
+                        'color': '#fff',
+                        'font-weight': 'bold',
+                        'text-shadow': '#000 0 1px 2px',
+                        'z-index': '2',
+                        'text-decoration': 'none'
+                    })
+                    .html(city);
+            cityBlock.appendTo($('.active_city a'));
             {#
             var map = L.map('map').setView([43.5263, 5.44539], 12);
 

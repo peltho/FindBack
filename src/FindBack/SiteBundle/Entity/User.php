@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-class User implements AdvancedUserInterface, EquatableInterface
+class User implements AdvancedUserInterface, EquatableInterface, \Serializable
 {
     /**
      * @var integer
@@ -53,6 +53,17 @@ class User implements AdvancedUserInterface, EquatableInterface
      * @var boolean
      */
     private $isActive;
+
+    /**
+     * @var string
+     */
+    protected $facebookId;
+
+    /**
+     * @var string
+     */
+    private $facebookPage;
+
 
     public function __construct()
     {
@@ -168,11 +179,24 @@ class User implements AdvancedUserInterface, EquatableInterface
      * @param \DateTime $birthdate
      * @return User
      */
-    public function setBirthdate($birthdate)
+    public function setBirthdate(\DateTime $birthdate)
     {
         $this->birthdate = $birthdate;
     
         return $this;
+    }
+
+    /**
+     * @return \DateInterval
+     */
+    public function getAge()
+    {
+        if(isset($this->birthdate))
+        {
+            $interval = $this->birthdate->diff(new \DateTime());
+            return $interval->y;
+        }
+        return false;
     }
 
     /**
@@ -311,4 +335,128 @@ class User implements AdvancedUserInterface, EquatableInterface
         return $this->isActive;
     }
 
+    /**
+     * Serializes the user.
+     *
+     * The serialized data have to contain the fields used by the equals method and the username.
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->password,
+            $this->salt,
+            $this->username,
+            $this->isActive,
+            $this->gender,
+            $this->email,
+            $this->birthdate,
+            $this->facebookId,
+            $this->lastname,
+            $this->id
+        ));
+    }
+
+    /**
+     * Unserializes the user.
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+        // add a few extra elements in the array to ensure that we have enough keys when unserializing
+        // older data which does not include all properties.
+        $data = array_merge($data, array_fill(0, 2, null));
+
+        list(
+            $this->password,
+            $this->salt,
+            $this->username,
+            $this->isActive,
+            $this->gender,
+            $this->email,
+            $this->birthdate,
+            $this->facebookId,
+            $this->lastname,
+            $this->id
+            ) = $data;
+    }
+
+    /**
+     * Get the full name of the user (first + last name)
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getUsername() . ' ' . $this->getLastname();
+    }
+
+    /**
+     * @param string $facebookId
+     * @return void
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
+        $this->setUsername($facebookId);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * @param Array
+     */
+    public function setFBData($fbdata)
+    {
+        if (isset($fbdata['id'])) {
+            $this->setFacebookId($fbdata['id']);
+        }
+        if (isset($fbdata['first_name'])) {
+            $this->setUsername($fbdata['first_name']);
+        }
+        if (isset($fbdata['last_name'])) {
+            $this->setLastname($fbdata['last_name']);
+        }
+        if (isset($fbdata['gender'])) {
+            $this->setGender($fbdata['gender']);
+        }
+        if (isset($fbdata['birthday'])) {
+            $birthdate = new \DateTime($fbdata['birthday']);
+            $this->setBirthdate($birthdate);
+        }
+        if (isset($fbdata['link'])) {
+            $this->setFacebookPage($fbdata['link']);
+        }
+    }
+
+    /**
+     * Set facebookPage
+     *
+     * @param string $facebookPage
+     * @return User
+     */
+    public function setFacebookPage($facebookPage)
+    {
+        $this->facebookPage = $facebookPage;
+    
+        return $this;
+    }
+
+    /**
+     * Get facebookPage
+     *
+     * @return string 
+     */
+    public function getFacebookPage()
+    {
+        return $this->facebookPage;
+    }
 }

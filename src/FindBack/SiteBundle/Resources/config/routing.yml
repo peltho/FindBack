@@ -9,6 +9,16 @@ register_check:
 login_check:
     pattern:  /login_check
 
+_security_check:
+    pattern:  /login_fb_check
+
+_security_logout:
+    pattern:  /logout
+
+_facebook_secured:
+    pattern: /
+    defaults: { _controller: FindBackSiteBundle:Base:index }
+
 logout:
     pattern:  /logout
 
