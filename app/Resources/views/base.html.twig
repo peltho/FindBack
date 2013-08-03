@@ -2,6 +2,7 @@
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
     <head>
         <meta charset="UTF-8" />
+        {#<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />#}
         <title>{% block title %}FindBack{% endblock %}</title>
         {% block stylesheets %}
             <link href="{{ asset('bundles/findbacksite/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
@@ -34,7 +35,7 @@
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/base.js') }}"></script>
             <script type="text/javascript">
                 function goLogIn(){
-                    window.location.href = "{{ path('_security_check') }}";
+                    window.location.href = "{{ path('login_fb_check') }}";
                 }
 
                 function onFbInit() {
@@ -43,7 +44,7 @@
                             if (response.session || response.authResponse) {
                                 setTimeout(goLogIn, 500);
                             } else {
-                                window.location.href = "{{ path('_security_logout') }}";
+                                window.location.href = "{{ path('logout') }}";
                             }
                         });
                     }

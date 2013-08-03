@@ -29,7 +29,7 @@ body {
 }
 
 .btn:first-child {
-    min-width: 100px;
+    min-width: 65px;
 }
 
 .dropdown-menu {
@@ -50,6 +50,17 @@ body {
     margin-bottom: 0;
     font-size: 12px;
     float: left;
+}
+
+.profile_img {
+    border: 1px solid #ccc;
+    padding: 4px;
+    width: 160px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .alert .close {
@@ -129,8 +140,22 @@ input::-ms-input-placeholder {
    color: #555; 
 }
 
-#map {
-    height: 300px;
+#map img {
+    max-width: none;
+    background-color: transparent;
+}
+
+.tab-content {
+    background-color: #fff;
+}
+.nav {
+    margin-bottom: 0;
+}
+.tab-pane {
+    padding: 10px;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 }
 
 ul li {
@@ -211,7 +236,7 @@ div[id*="wanted"] ul {
     margin: 10px 0 20px 0;
 }
 aside {
-    word-break:break-all;
+    /*word-break:break-all;*/
 }
 
 .search-btn {
@@ -235,6 +260,10 @@ aside {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     background-color: #3A87AD;
+}
+
+h5 {
+    text-shadow: 0px 1px 0px #fff;
 }
 
 .buttons {
@@ -280,4 +309,17 @@ aside .label {
     height: 150px;
     border: 1px solid #C9C9C8;
     border-radius: 5px;
+}
+
+.input-prepend select {
+    font-size: 12px;
+}
+
+.table-hover tbody tr:hover > td,
+.table-hover tbody tr:hover > th {
+    background-color: #ddd;
+}
+
+.table-hover tbody tr {
+    background-color: #fff;
 }

@@ -1,5 +1,10 @@
 {% extends "FindBackSiteBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/findbacksite/css/jquery.ui.timepicker.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
 {% block left_title %}
     <h5>Quelqu'un vous recherche-t-il ?</h5>
 {% endblock %}
@@ -13,11 +18,54 @@
         </p>
     </div>
     <h5>Effectuer une vérification instantanée</h5>
-    <form align="center">
-        <input type="text" placeholder="Où étiez-vous ?" />
-        <input type="text" placeholder="Quand ?" />
-        <button class="btn"><i class="icon-plus"></i></button>
-        <button class="btn btn-success"><i class="icon-search icon-white"></i></button>
+    <form style="margin-left:80px;">
+        <div align="center"  style="display: inline-block">
+            <div class="input-prepend">
+                <span class="add-on"><i class="icon-map-marker"></i></span>
+                <input type="text" class="geo" id="geo" placeholder="Où étiez-vous ?" required>
+            </div>
+            <div class="input-prepend">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+                <input type="text" class="span2 date" placeholder="Quand ?" required>
+            </div>
+        </div>
+        <div align="center" style="display: inline-block">
+            <div class="input-prepend hide">
+                <span class="add-on"><i class="icon-time"></i></span>
+                <input type="text" class="time" placeholder="À partir de quelle heure ?">
+            </div>
+            <div class="input-prepend hide">
+                <span class="add-on"><i class="icon-home"></i></span>
+                <select class="span2 establishment">
+                    <option value="" disabled selected>Établissement...</option>
+                    <option value="night_club">Bar / Discothèque</option>
+                    <option value="lodging">Hôtel</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="university">Université / Cité U</option>
+                    <option value="lycee">Lycée / Collège</option>
+                    <option value="office">Entreprise</option>
+                </select>
+            </div>
+            {#<div class="onchange" style="display: none; text-align: right">
+                <select style="width:50px">
+                    <option value="" disabled selected></option>
+                    <option value="le">Le</option>
+                    <option value="la">La</option>
+                    <option value="l">L'</option>
+                </select>
+                <input type="text" class="span2" placeholder="Nom établissement" />
+            </div>#}
+            <input name="establishment_name" type="hidden" />   {# Nom établissement #}
+            <input name="establishment_type" type="hidden" />   {# Type établissement #}
+            <input name="street" type="hidden" />               {# Adresse #}
+            <input name="city" type="hidden" />                 {# Ville #}
+            <input name="location" type="hidden" />             {# Coordonnées géo #}
+            <input name="addr" type="hidden" />                 {# Adresse complète #}
+        </div>
+
+        <a class="btn plus"><i class="icon-plus"></i></a>
+        <button type="submit" class="btn btn-success"><i class="icon-search icon-white"></i></button>
+
     </form>
 {% endblock %}
 
@@ -26,5 +74,105 @@
 {% endblock %}
 
 {% block right_content %}
-    <p>// Lieux fréquentés</p>
+    <p>// Lieux fréquentés + description</p>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+    {#<script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.geocomplete.min.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.ui.timepicker.js') }}"></script>
+    <script type="text/javascript">
+        /**
+         * Tooltip trick
+         */
+        $('.plus').tooltip({
+            title: 'Cliquez pour rajouter des informations',
+            placement: 'bottom',
+            container: 'body'
+        }).click(function() {
+            $('.hide').fadeIn().css('display', 'inline-block');
+            $(this).tooltip('hide').remove();
+        });
+
+        /**
+         * Placeholder dynamique
+         */
+        $('#geo').focus(function() {
+            $(this).attr('placeholder', 'Nom, Adresse');
+        }).blur(function() {
+            $(this).attr('placeholder', 'Où étiez-vous ?');
+        });
+
+        var input = /** @type {HTMLInputElement} */(document.getElementById('geo'));
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            var address = '';
+            if (place.address_components) {
+              address = [
+                (place.address_components[0] && place.address_components[0].short_name || ''),
+                (place.address_components[1] && place.address_components[1].short_name || ''),
+                (place.address_components[2] && place.address_components[2].short_name || '')
+              ].join(' ');
+            }
+            var establishment_name = $('input[name="establishment_name"]');
+            var establishment_type = $('input[name="establishment_type"]');
+            var location           = $('input[name="location"]');
+            var route              = $('input[name="street"]');
+            var city               = $('input[name="city"]');
+            var addr               = $('input[name="addr"]');
+
+            establishment_name.val(null);
+            establishment_type.val(null);
+            location.val(null);
+            route.val(null);
+            city.val(null);
+            addr.val(null);
+
+            for(var i=0; i<place.address_components.length; ++i) {
+                switch(place.address_components[i].types[0]) {
+                    case 'route':
+                        route.val(place.address_components[i].long_name);
+                        break;
+                    case 'locality':
+                        city.val(place.address_components[i].long_name);
+                        break;
+                }
+                if(place.types[place.types.length-1] == "establishment") {
+                    establishment_name.val(place.name);
+                    var type = place.types[0];
+                    establishment_type.val(type);
+
+                    if(type == "night_club" || type == "bar") {
+                        $('select.span2.establishment option[value="night_club"]').prop('selected', 'selected');
+                    } else if (type == "university") {
+                        $('select.span2.establishment option[value="university"]').prop('selected', 'selected');
+                    } else if (type == "school") {
+                        $('select.span2.establishment option[value="school"]').prop('selected', 'selected');
+                    } else if (type == "restaurant" || type == "food") {
+                        $('select.span2.establishment option[value="restaurant"]').prop('selected', 'selected');
+                    } else if (type == "lodging") {
+                        $('select.span2.establishment option[value="lodging"]').prop('selected', 'selected');
+                    }
+                } else {
+                    $('select.span2.establishment option').prop('disabled', 'disabled');
+                }
+                addr.val(place.formatted_address);
+                if(place.geometry.location) {
+                    location.val(place.geometry.location.jb + ", " + place.geometry.location.kb);
+                }
+            }
+            //console.log(place);
+        });
+
+        $('.date').datepicker({
+            maxDate: "Now",
+            dateFormat: "dd/mm/yy"
+        });
+        $('.time').timepicker();
+        $('select').change(function() {
+            $('.onchange').fadeIn();
+        });
+    </script>
 {% endblock %}

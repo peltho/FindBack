@@ -1,0 +1,24 @@
+FindBack\SiteBundle\Entity\Wanted:
+    type:  entity
+    repositoryClass: FindBack\SiteBundle\Entity\WantedRepository
+    table: wanted
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: date
+        circumstances:
+            type: text
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: wanteds
+        description:
+            targetEntity: Description
+            inversedBy: wanteds
+        place:
+            targetEntity: Place
+            inversedBy: wanteds

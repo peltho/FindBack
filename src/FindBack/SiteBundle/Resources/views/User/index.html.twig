@@ -10,6 +10,9 @@
         .well {
             width: 275px;
         }
+        .well.extended {
+            width: auto;
+        }
         .identity, .sub-identity {
             width: 120px;
             font-weight: bold;
@@ -27,42 +30,141 @@
 {% endblock %}
 
 {% block left_title %}
-    <h5><i class="icon-user"></i> Mon compte</h5>
+    <h5><i class="icon-user"></i> Mon compte  <i class="icon-info-sign" style="vertical-align:middle;cursor: pointer;"></i></h5>
 {% endblock %}
 {% block left_content %}
-    <p class="alert alert-info">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <div class="alert alert-info hide">
         Les informations suivies du sigle <i class="icon-eye-close"></i> ne sont pas visibles par autrui.<br />
         Pour visualiser de quelle manière un utilisateur lambda voit votre profil, cliquez sur le bouton associé dans l'espace de droite.
-    </p>
+    </div>
     <div class="infos">
         <h5>Informations personnelles</h5>
         <ul class="well">
-            <li><span class="identity">Nom</span>{{ firstname }} {{ lastname }}</li>
-            <li><span class="identity">Âge</span>{{ age }} ans</li>
+            <li><span class="identity">Nom</span>{{ user.username }} {{ user.lastname }}</li>
+            <li><span class="identity">Âge</span>{{ user.getAge }} ans</li>
             <li><span class="identity">Recherches</span>3</li>
-            <li><span class="identity">Retrouvailles</span>1</li>
-            <li><span class="identity">Email <i class="icon-eye-close"></i></span><a href="mailto:{{ email }}">{{ email }}</a></li>
-            <li><span class="identity">Facebook</span><a href="{{ FBPage }}" target="_blank">Profil</a></li>
-            <li><span class="identity">Site Web</span><a href="#" target="_blank">www.findback.com</a></li>
+            <li><span class="identity">Retrouvailles</span>{{ user.found }}</li>
+            <li><span class="identity">Email <i class="icon-eye-close"></i></span><a href="mailto:{{ user.email }}">{{ user.email }}</a></li>
+            <li><span class="identity">Facebook</span><a href="{{ user.facebookPage }}" target="_blank">Profil</a></li>
+            {% if user.website %}
+                <li><span class="identity">Site Web</span><a href="{{ user.website }}" target="_blank">{{ user.website }}</a></li>
+            {% endif %}
         </ul>
     </div>
     <div class="infos" style="float:right;">
         <h5>Description physique</h5>
         <ul class="well">
-            <li><span class="identity">Sexe</span>{{ gender|trans }}</li>
-            <li><span class="identity">Taille</span>1m80</li>
-            <li><span class="identity">Type</span>Européen</li>
-            <li><span class="identity">Cheveux</span>Bruns</li>
-            <li><span class="identity">Coupe</span>Courts</li>
-            <li><span class="identity">Tatouage</span>Oui
-                <ul>
-                    <li><span class="sub-identity">Emplacement</span>Bras</li>
-                    <li><span class="sub-identity">Motif</span>Tribal</li>
-                </ul>
-            </li>
-            <li><span class="identity">Piercing</span>Non</li>
+            <li><span class="identity">Sexe</span>{{ user.gender|trans }}</li>
+            <li><span class="identity">Taille</span>{{ description.height }}</li>
+            <li><span class="identity">Type</span>{{ description.type }}</li>
+            <li><span class="identity">Cheveux</span>{{ description.hairColor }}</li>
+            <li><span class="identity">Coupe</span>{{ description.hairCut }}</li>
+            <li><span class="identity">Yeux</span>{{ description.eyes }}</li>
+            <li><span class="identity">Piercing</span>{{ description.piercing }}</li>
+            <li><span class="identity">Tatouage</span>{{ description.tattoo }}</li>
         </ul>
+    </div>
+    <h5>Lieux fréquentés <a href="#modal" role="button" data-toggle="modal"><i class="icon-question-sign"></i></a></h5>
+    <div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="modalLabel">Lieux fréquentés</h3>
+        </div>
+        <div class="modal-body">
+            <p>Vous devez spécifier des lieux que vous fréquentez de manière <b>régulière</b> en sortie.</p>
+            <p><b>Rassurez-vous</b>, le but n'est pas de vous espionner mais d'obtenir des données précises sur les lieux que vous fréquentez en sortie et dans lesquels il est possible que <strong>quelqu'un vous recherche</strong>.</p>
+            <p>Grâce à ces données, nous vous mettrons <strong>en relation</strong> avec des personnes qui <strong>recherchent</strong> un <b>profil similaire au vôtre</b> dans les lieux renseignés.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
+        </div>
+    </div>
+    {# tabs avec formulaire et map #}
+    <div class="well extended">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#places" data-toggle="tab">Lieux</a></li>
+            <li><a href="#carte" data-toggle="tab">Carte</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="places">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Ville</th>
+                            <th>Adresse</th>
+                            <th>Nom</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aix-en-Provence</td>
+                            <td>Rue de la verrerie</td>
+                            <td>Le Scat</td>
+                            <td>Bar / Discothèque</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="carte">
+                <div id="map" style="height: 400px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <h5>Mes avis de recherche</h5>
+    <div class="well extended">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Sexe</th>
+                    <th>Ville</th>
+                    <th>Établissement</th>
+                    <th>Date</th>
+                    <th>Heure</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Femme</td>
+                    <td>Aix-en-Provence</td>
+                    <td>Le Scat</td>
+                    <td>03/08/2013</td>
+                    <td>23h00</td>
+                    <td><a href="#"><i class="icon-search"></i></a></td>
+                </tr>
+                <tr>
+                    <td>Femme</td>
+                    <td>Aix-en-Provence</td>
+                    <td>Le Mistral</td>
+                    <td>01/08/2013</td>
+                    <td>23h45</td>
+                    <td><a href="#"><i class="icon-search"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h5>Personnes retrouvées</h5>
+    <div class="well" style="width:325px">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="success">
+                    <td><a href="#">Giulia Belgada</a></td>
+                    <td>Confirmé <i class="icon-ok"></i></td>
+                </tr>
+                <tr class="info">
+                    <td><a href="#">Bar Rafaeli</a></td>
+                    <td>En attente de confirmation... <i class="icon-time"></i></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 {% endblock %}
 
@@ -72,8 +174,60 @@
 
 {% block right_content %}
     <div align="center">
-        <p><button class="btn"><b>Éditer mes informations</b></button></p>
+        <p><a class="btn" href="{{ path('account_edit') }}"><b>Éditer mes informations</b></a></p>
         <p><button class="btn btn-primary"><b>Voir mon profil public</b></button></p>
-        <p><button class="btn btn-danger"><b>Supprimer mon compte</b></button></p>
+        {#<p><button class="btn btn-danger"><b>Supprimer mon compte</b></button></p>#}
     </div>
+{% endblock %}
+
+{% block right_content2 %}
+    <h5>Bio</h5>
+    <div align="center" style="padding: 10px">
+        <div class="profile_img">
+            <img src="https://graph.facebook.com/{{ user.facebookId }}/picture?width=160&height=160" />
+        </div>
+        <p class="well" style="margin: 10px; width: auto;text-align: left;">
+            {{ user.biography|nl2br }}
+        </p>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD4QDBP3GO6fXiHJGSLweZwPpbaMf1FSJw&sensor=false"></script>
+    <script type="text/javascript">
+        $('.icon-info-sign').click(function() {
+            $('.alert.alert-info.hide').toggle('slow');
+        });
+        $('ul.nav.nav-tabs li a[data-toggle="tab"]').click(function() {
+            setTimeout(function() {
+                var latlng = new google.maps.LatLng(46.70973594407157, 2.61474609375);
+                var map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 5,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                google.maps.event.addListener(map, 'click', function(e) {
+                    alert(e.latLng);
+                });
+
+                // Ceci ds une boucle qui liste les lieux
+
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: "Property location"
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    var infowindow = new google.maps.InfoWindow({
+                        content: marker.title
+                    });
+                    infowindow.open(marker.get('map'), marker);
+                });
+
+            }, 500);
+        });
+    </script>
 {% endblock %}

@@ -1,0 +1,158 @@
+{% extends "FindBackSiteBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .infos {
+            position: relative;
+            float: left;
+        }
+        .well.extended, .well.extended > div {
+            width: auto;
+            display: block;
+        }
+        .well {
+            width: 275px;
+        }
+        .identity, .sub-identity, label {
+            width: 120px;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            width: 200px;
+            font-weight: bold;
+        }
+        input[name*="user["] {
+            width: 130px;
+            height: 10px;
+            margin-bottom: 1px;
+            font-size: 10px;
+        }
+        form div {
+            display: inline-block;
+        }
+        select[name*="user["] {
+            width: 130px;
+            height: 20px;
+            font-size: 10px;
+            margin-bottom: 1px;
+            padding: 0;
+        }
+        textarea {
+            min-height: 100px;
+        }
+    </style>
+{% endblock %}
+
+{% block left_title %}
+    <h5><i class="icon-user"></i> Mon compte</h5>
+{% endblock %}
+{% block left_content %}
+    <form id="user_form" action="{{ path('account_edit') }}" method="post" {{ form_enctype(form) }}>
+    <div class="infos">
+        <h5>Informations personnelles</h5>
+        <ul class="well">
+            <li><span class="identity">Nom</span>{{ user.username }} {{ user.lastname }}</li>
+            <li><span class="identity">Âge</span>{{ user.getAge }} ans</li>
+            <li><span class="identity">Recherches</span>3</li>
+            <li><span class="identity">Retrouvailles</span>{{ user.found }}</li>
+            <li><span class="identity">Email <i class="icon-eye-close"></i></span>{{ form_row(form.email) }}</li>
+            <li><span class="identity">Profil Facebook</span>{{ form_row(form.facebookPage) }}</li>
+            <li><span class="identity">Site Web</span>{{ form_row(form.website) }}</li>
+        </ul>
+    </div>
+    <div class="infos" style="float:right;">
+        <h5>Description physique</h5>
+        <ul class="well">
+            <li><span class="identity">Sexe</span>{{ form_row(form.gender) }}</li>
+            <li><span class="identity">Taille</span>{{ form_row(form.description.height) }}</li>
+            <li><span class="identity">Type</span>{{ form_row(form.description.type) }}</li>
+            <li><span class="identity">Cheveux</span>{{ form_row(form.description.hairColor) }}</li>
+            <li><span class="identity">Coupe</span>{{ form_row(form.description.hairCut) }}</li>
+            <li><span class="identity">Yeux</span>{{ form_row(form.description.eyes) }}</li>
+            <li><span class="identity">Piercing</span>{{ form_row(form.description.piercing) }}</li>
+            <li><span class="identity">Tatouage</span>{{ form_row(form.description.tattoo) }}</li>
+        </ul>
+    </div>
+    <h5>Lieux fréquentés</h5>
+    <div class="well extended">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#places" data-toggle="tab">Lieux</a></li>
+            <li><a href="#carte" data-toggle="tab">Carte</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="places">
+                <ul>
+                    <li>Aix-en-Provence > Rue de la verrerie > Bar/Discothèque, Le Scat</li>
+                </ul>
+            </div>
+            <div class="tab-pane" id="carte">
+                <div id="map" style="height: 400px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block right_title %}
+    <h5><i class="icon-edit"></i> Mettre à jour</h5>
+{% endblock %}
+
+{% block right_content %}
+    <div align="center">
+        {{ form_widget(form._token) }}
+        <p><input type="submit" class="btn btn-success"  value="Terminer" /></p>
+        <p><a href="{{ path('account') }}" class="btn btn-danger" style="width: 175px;"><b>Annuler</b></a></p>
+    </div>
+{% endblock %}
+
+{% block right_content2 %}
+    <h5>Bio</h5>
+    <div align="center" style="padding: 10px">
+        <div class="profile_img">
+            <img src="https://graph.facebook.com/{{ user.facebookId }}/picture?width=160&height=160" />
+        </div>
+        <div class="well" style="margin: 10px; width: auto;">
+            {{ form_row(form.biography) }}
+        </div>
+    </div>
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD4QDBP3GO6fXiHJGSLweZwPpbaMf1FSJw&sensor=false"></script>
+    <script type="text/javascript">
+        $('ul.nav.nav-tabs li a[data-toggle="tab"]').click(function() {
+            setTimeout(function() {
+                var latlng = new google.maps.LatLng(46.70973594407157, 2.61474609375);
+                var map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 5,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                google.maps.event.addListener(map, 'click', function(e) {
+                    alert(e.latLng);
+                });
+
+                // Ceci ds une boucle qui liste les lieux
+
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: "Property location"
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    var infowindow = new google.maps.InfoWindow({
+                        content: marker.title
+                    });
+                    infowindow.open(marker.get('map'), marker);
+                });
+
+            }, 500);
+        });
+    </script>
+{% endblock %}

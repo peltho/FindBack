@@ -1,0 +1,29 @@
+FindBack\SiteBundle\Entity\Place:
+    type:  entity
+    repositoryClass: FindBack\SiteBundle\Entity\PlaceRepository
+    table: places
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        city:
+            type: string
+            length: 60
+        street:
+            type: string
+            length: 60
+        establishment:
+            type: string
+            length: 60
+        name:
+            type: string
+            length: 60
+    manyToMany:
+        users:
+            targetEntity: User
+    oneToMany:
+        wanteds:
+             targetEntity: Wanted
+             mappedBy: place

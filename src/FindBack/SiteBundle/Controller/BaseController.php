@@ -2,6 +2,7 @@
 
 namespace FindBack\SiteBundle\Controller;
 
+use FindBack\SiteBundle\Entity\Description;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use FindBack\SiteBundle\Form\Type\RegistrationType;
@@ -36,7 +37,6 @@ class BaseController extends Controller
             ));
 
             return $this->render('FindBackSiteBundle:Base:index.html.twig', array(
-                // last username entered by the user
                 'last_username' => $session->get(SecurityContext::LAST_USERNAME),
                 'error'         => $error,
                 'form' => $form->createView()
@@ -58,10 +58,11 @@ class BaseController extends Controller
             $encoder = $factory->getEncoder($user);
             $password = $encoder->encodePassword($form->getData()->getPassword(), $user->getSalt());
             $user->setPassword($password);
+            $user->setDescription(new Description());
             $em->persist($user);
             $em->flush();
 
-            $registeredGender = ($user->getGender() == "female") ? "inscrite" : "inscrit";
+            $registeredGender = ($user->getGender() == "Female") ? "inscrite" : "inscrit";
 
             $this->get('session')->getFlashBag()->add(
                 'notice',

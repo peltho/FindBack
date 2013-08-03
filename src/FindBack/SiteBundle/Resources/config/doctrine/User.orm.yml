@@ -29,8 +29,7 @@ FindBack\SiteBundle\Entity\User:
             nullable: true
         gender:
             type: string
-            length: 255
-            nullable: true
+            length: 10
         salt:
             type: string
             length: 32
@@ -40,10 +39,30 @@ FindBack\SiteBundle\Entity\User:
             type: string
             length: 255
             nullable: true
-        #facebookId:
-        #    type: string
-        #    length: 255
-        #    nullable: true
-    uniqueConstraints:
-            email_idx:
-                columns: email
+        facebookId:
+            type: string
+            length: 255
+            nullable: true
+        website:
+            type: string
+            length: 255
+            nullable: true
+        found:
+            type: integer
+            length: 11
+        biography:
+            type: text
+            nullable: true
+    oneToOne:
+        description:
+            targetEntity: Description
+            joinColumn:
+                name: description_id
+                referencedColumnName: id
+    manyToMany:
+        places:
+            targetEntity: Place
+    oneToMany:
+        wanteds:
+            targetEntity: Wanted
+            mappedBy: user

@@ -41,6 +41,7 @@ class FacebookProvider implements UserProviderInterface
             $fbdata = $this->facebook->api('/me');
         } catch (FacebookApiException $e) {
             $fbdata = null;
+            throw new UsernameNotFoundException('Erreur '.$e);
         }
 
         if (!empty($fbdata)) {

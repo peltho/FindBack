@@ -1,0 +1,48 @@
+FindBack\SiteBundle\Entity\Description:
+    type:  entity
+    repositoryClass: FindBack\SiteBundle\Entity\DescriptionRepository
+    table: descriptions
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        height:
+            type: string
+            length: 30
+            nullable: true
+        type:
+            type: string
+            length: 30
+            nullable: true
+        hairColor:
+            type: string
+            length: 30
+            nullable: true
+        hairCut:
+            type: string
+            length: 30
+            nullable: true
+        eyes:
+            type: string
+            length: 30
+            nullable: true
+        piercing:
+            type: string
+            length: 11
+            nullable: true
+        tattoo:
+            type: string
+            length: 11
+            nullable: true
+    oneToOne:
+        user:
+            targetEntity: User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+    oneToMany:
+        wanteds:
+            targetEntity: Wanted
+            mappedBy: description

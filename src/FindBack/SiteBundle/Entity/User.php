@@ -64,6 +64,35 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
      */
     private $facebookPage;
 
+    /**
+     * @var \FindBack\SiteBundle\Entity\Description
+     */
+    private $description;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $wanteds;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $places;
+
+    /**
+     * @var string
+     */
+    private $website;
+
+    /**
+     * @var integer
+     */
+    private $found;
+
+    /**
+     * @var string
+     */
+    private $biography;
 
     public function __construct()
     {
@@ -458,5 +487,163 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
     public function getFacebookPage()
     {
         return $this->facebookPage;
+    }
+
+    /**
+     * Set description
+     *
+     * @param \FindBack\SiteBundle\Entity\Description $description
+     * @return User
+     */
+    public function setDescription(\FindBack\SiteBundle\Entity\Description $description = null)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return \FindBack\SiteBundle\Entity\Description 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Add wanteds
+     *
+     * @param \FindBack\SiteBundle\Entity\Wanted $wanteds
+     * @return User
+     */
+    public function addWanted(\FindBack\SiteBundle\Entity\Wanted $wanteds)
+    {
+        $this->wanteds[] = $wanteds;
+    
+        return $this;
+    }
+
+    /**
+     * Remove wanteds
+     *
+     * @param \FindBack\SiteBundle\Entity\Wanted $wanteds
+     */
+    public function removeWanted(\FindBack\SiteBundle\Entity\Wanted $wanteds)
+    {
+        $this->wanteds->removeElement($wanteds);
+    }
+
+    /**
+     * Get wanteds
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWanteds()
+    {
+        return $this->wanteds;
+    }
+
+    /**
+     * Add places
+     *
+     * @param \FindBack\SiteBundle\Entity\Place $places
+     * @return User
+     */
+    public function addPlace(\FindBack\SiteBundle\Entity\Place $places)
+    {
+        $this->places[] = $places;
+    
+        return $this;
+    }
+
+    /**
+     * Remove places
+     *
+     * @param \FindBack\SiteBundle\Entity\Place $places
+     */
+    public function removePlace(\FindBack\SiteBundle\Entity\Place $places)
+    {
+        $this->places->removeElement($places);
+    }
+
+    /**
+     * Get places
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPlaces()
+    {
+        return $this->places;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     * @return User
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+    
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string 
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set found
+     *
+     * @param integer $found
+     * @return User
+     */
+    public function setFound($found)
+    {
+        $this->found = $found;
+    
+        return $this;
+    }
+
+    /**
+     * Get found
+     *
+     * @return integer 
+     */
+    public function getFound()
+    {
+        return $this->found;
+    }
+
+    /**
+     * Set biography
+     *
+     * @param string $biography
+     * @return User
+     */
+    public function setBiography($biography)
+    {
+        $this->biography = $biography;
+    
+        return $this;
+    }
+
+    /**
+     * Get biography
+     *
+     * @return string 
+     */
+    public function getBiography()
+    {
+        return $this->biography;
     }
 }

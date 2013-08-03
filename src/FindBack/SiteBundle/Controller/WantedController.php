@@ -13,4 +13,9 @@ class WantedController extends Controller
     {
         return $this->render('FindBackSiteBundle:Wanted:index.html.twig');
     }
+
+    public function searchAction()
+    {
+        return $this->render('FindBackSiteBundle:Wanted:search.html.twig');
+    }
 }

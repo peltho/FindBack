@@ -16,16 +16,22 @@
         {% endfor %}
         {# Message d'erreur de connexion #}
         {% if error %}
-            <div class="alert alert-error">{{ error.message|trans }}</div>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ error.message|trans }}
+            </div>
         {% endif %}
         {# Formulaire de connexion #}
         <form action="{{ path('login_check') }}" method="post" class="navbar-form pull-right">
-            <input type="email" class="span2" name="_username" placeholder="Adresse email" value="{{ last_username }}" />
-            <input type="password" class="span2" name="_password" placeholder="Mot de passe" />
+            <input type="email" class="span2" name="_username" placeholder="Adresse email" value="{{ last_username }}" required/>
+            <input type="password" class="span2" name="_password" placeholder="Mot de passe" required/>
             <input class="btn" type="submit" value="Connexion" />
         </form>
         <button class="btn settings" style="margin-left:4px;" rel="popover" data-toggle="popover" data-container="body"><i class="icon-cog"></i></button>
-        {{ facebook_login_button({'label': 'Connexion'}) }}
+        <div class="facebook" style="display: none;">
+            {{ facebook_login_button({'label': 'Connexion'}) }}
+            <p><a href="#">Mot de passe oublié ?</a></p>
+        </div>
     </div>
 {% endblock %}
 
@@ -67,14 +73,14 @@
     <script type="text/javascript">
         $(function () {
 
+            $('.settings').click(function() { $('.facebook').css('display', 'block') });
             $('.settings').popover({
                 'title': 'Options',
                 'placement': 'bottom',
                 trigger: "click",
                 html: true,
-                'content': '<a href="#">Mot de passe oublié ?</a>'
+                'content': $('.facebook')
             });
-
             $('#registration_birthdate').datepicker({
                 changeYear: true,
                 yearRange: "1950:Now",
