@@ -1,14 +1,244 @@
 {% extends "FindBackSiteBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/findbacksite/css/jquery.ui.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/findbacksite/css/chosen.min.css') }}" type="text/css" rel="stylesheet" />
+    <style type="text/css">
+        .bloc {
+            float: left;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+        }
+        textarea {
+            height: 150px;
+            width: 545px;
+        }
+        #wanted_description div {
+            margin-bottom: 7px;
+        }
+        select[name*="wanted[description]"] {
+            width: 175px;
+        }
+        .chosen-container {
+            margin-bottom: 10px;
+        }
+        #wanted_description_height {
+            width: 165px;
+        }
+        #wanted_description_height label {
+            width: 90px;
+        }
+        #slider-range {
+            width: 175px;
+            margin-left: 100px;
+            margin-bottom: 20px;
+        }
+        #wanted_place_formatted_address {
+            width: 300px;
+        }
+        #wanted_place_establishment_type {
+            margin-left: 5px;
+        }
+        #wanted_date_date {
+            display: inline-block;
+            width: 120px;
+            position: relative;
+            float: left;
+        }
+        #wanted_date_time {
+            display: inline-block;
+            width: 160px;
+            float: left;
+            margin-left: 5px;
+            position: relative;
+        }
+        aside {
+            display: none;
+        }
+        article {
+            width: auto;
+            overflow: visible;
+            float: none;
+        }
+    </style>
+{% endblock %}
+
 {% block left_title %}
     <h5><i class="icon-search"></i> Rechercher quelqu'un</h5>
 {% endblock %}
 
 {% block left_content %}
+    <form action="{{ path('wanted_publish') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+        <div class="bloc" style="width: 600px;">
+            <h5>Situation spatio-temporelle</h5>
+            <div class="well">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#places" data-toggle="tab">Coordonnées</a></li>
+                    <li><a href="#carte" data-toggle="tab">Carte</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="places">
+                        {{ form_row(form.place.formatted_address) }}
+                        {{ form_row(form.date.date) }}
+                        {{ form_row(form.date.time) }}
+                        {{ form_row(form.place.establishment_type) }}
+                    </div>
+                    <div class="tab-pane" id="carte">
+                        <div id="map" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+            <h5>En quelles circonstances ?</h5>
+            <div class="well">
+                {{ form_row(form.circumstances) }}
+            </div>
+        </div>
+        <div class="bloc" style="margin-left: 20px;width: 320px;">
+            <h5>Description physique</h5>
+            <div class="well">
+                {{ form_row(form.description.height) }}
+                <div id="slider-range"></div>
+                {{ form_end(form.description) }}
+                {{ form_widget(form._token) }}
+            </div>
+            <input type="submit" class="btn btn-success" value="Publier" />
+        </div>
+    </form>
 {% endblock %}
 
-{% block right_title %}
-{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+    <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.ui.timepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/chosen.jquery.min.js') }}"></script>
+    <script type="text/javascript">
 
-{% block right_content %}
+        $('#slider-range').slider({
+            range: true,
+            min: 140,
+            max: 210,
+            step: 5,
+            values: [ 160, 180 ],
+            slide: function( event, ui ) {
+                $( "#wanted_description_height" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] + " cm");
+            }
+        });
+        $( "#wanted_description_height" ).val($( "#slider-range" ).slider( "values", 0 ) +
+                " - " + $( "#slider-range" ).slider( "values", 1 ) + " cm");
+
+        $('#wanted_description_hairColor').attr('multiple', 'multiple').chosen({max_selected_options: 2});
+        $('.chosen-choices').css({'border-color': '#ccc', 'background-image': 'none', 'border-radius': '3px'});
+
+        var loc, place;
+        var input = /** @type {HTMLInputElement} */(document.getElementById('wanted_place_formatted_address'));
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            place = autocomplete.getPlace();
+            var address = '';
+            if (place.address_components) {
+                address = [
+                    (place.address_components[0] && place.address_components[0].short_name || ''),
+                    (place.address_components[1] && place.address_components[1].short_name || ''),
+                    (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+            var establishment_name = $('input[name="wanted[place][establishment_name]"]');
+            var establishment_type = $('input[name="wanted[place][establishment_type]"]');
+            var location           = $('input[name="wanted[place][location]"]');
+            var street             = $('input[name="wanted[place][street]"]');
+            var city               = $('input[name="wanted[place][city]"]');
+
+            establishment_name.val(null);
+            establishment_type.val(null);
+            location.val(null);
+            street.val(null);
+            city.val(null);
+
+            for(var i=0; i<place.address_components.length; ++i) {
+                switch(place.address_components[i].types[0]) {
+                    case 'route':
+                        street.val(place.address_components[i].long_name);
+                        break;
+                    case 'locality':
+                        city.val(place.address_components[i].long_name);
+                        break;
+                }
+                if(place.types[place.types.length-1] == "establishment") {
+                    establishment_name.val(place.name);
+                    var type = place.types[0];
+                    establishment_type.val(type);
+
+                    if(type == "night_club" || type == "bar") {
+                        $('option[value="night_club"]').prop('selected', 'selected');
+                    } else if (type == "university") {
+                        $('option[value="university"]').prop('selected', 'selected');
+                    } else if (type == "school") {
+                        $('option[value="school"]').prop('selected', 'selected');
+                    } else if (type == "restaurant" || type == "food") {
+                        $('option[value="restaurant"]').prop('selected', 'selected');
+                    } else if (type == "lodging") {
+                        $('option[value="lodging"]').prop('selected', 'selected');
+                    }
+                } else {
+                    $('option').first().prop({
+                        'disabled': 'disabled',
+                        'selected': 'selected'
+                    });
+                }
+            }
+            if(place.geometry.location) {
+                location.val(place.geometry.location.nb + ", " + place.geometry.location.ob);
+                loc = place.geometry.location;
+            }
+        });
+
+        // plugins interactifs pour la date
+        $('.date').datepicker({
+            maxDate: "Now",
+            dateFormat: "dd/mm/yy"
+        });
+        $('.time').timepicker();
+
+        // map code
+        $('ul.nav.nav-tabs li a[data-toggle="tab"]').click(function() {
+            setTimeout(function() {
+                if(typeof loc !== 'undefined') {
+                    pos = new google.maps.LatLng(loc.nb, loc.ob);
+                }
+                else {
+                    pos = new google.maps.LatLng(46.70973594407157, 2.61474609375)
+                }
+                var latlng = pos;
+                var map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 15,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                // Positionne un marqueur lié à l'emplacement de recherche
+                if(typeof loc !== 'undefined') {
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(loc.nb, loc.ob),
+                        map: map,
+                        title: place.name + ", " + place.formatted_address
+                    });
+                }
+
+                // Permet la lecture du marqueur lorsqu'on clique dessus
+                google.maps.event.addListener(marker, 'click', function() {
+                    var infowindow = new google.maps.InfoWindow({
+                        content: marker.title
+                    });
+                    infowindow.open(marker.get('map'), marker);
+                });
+
+            }, 500);
+        });
+    </script>
 {% endblock %}

@@ -14,58 +14,36 @@
         <button type="button" class="close" style="font-size: 15px;" data-dismiss="alert">&times;</button>
         <p>
             Afin de pouvoir vous mettre en relation avec des personnes qui seraient à votre recherche, nous vous demandons de bien vouloir renseigner des informations supplémentaires concernant votre profil.<br />
-            Une <b>description physique</b> de vous-même, ainsi que les <b>lieux fréquentés</b> en soirée.
+            Une <b>description physique</b> de vous-même, ainsi que les <b>lieux fréquentés</b> en soirée. Pour cela, cliquez sur votre prénom en haut à droite de l'écran.
         </p>
     </div>
     <h5>Effectuer une vérification instantanée</h5>
-    <form style="margin-left:80px;">
+    <form style="margin-left:30px;" action="{{ path('wanted_check') }}" method="post" {{ form_enctype(form) }}>
         <div align="center"  style="display: inline-block">
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-map-marker"></i></span>
-                <input type="text" class="geo" id="geo" placeholder="Où étiez-vous ?" required>
+                {{ form_row(form.place.formatted_address) }}
             </div>
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-calendar"></i></span>
-                <input type="text" class="span2 date" placeholder="Quand ?" required>
+                {{ form_row(form.date.date) }}
             </div>
         </div>
         <div align="center" style="display: inline-block">
             <div class="input-prepend hide">
                 <span class="add-on"><i class="icon-time"></i></span>
-                <input type="text" class="time" placeholder="À partir de quelle heure ?">
+                {{ form_row(form.date.time) }}
             </div>
             <div class="input-prepend hide">
                 <span class="add-on"><i class="icon-home"></i></span>
-                <select class="span2 establishment">
-                    <option value="" disabled selected>Établissement...</option>
-                    <option value="night_club">Bar / Discothèque</option>
-                    <option value="lodging">Hôtel</option>
-                    <option value="restaurant">Restaurant</option>
-                    <option value="university">Université / Cité U</option>
-                    <option value="lycee">Lycée / Collège</option>
-                    <option value="office">Entreprise</option>
-                </select>
+                {{ form_row(form.place.establishment_type) }}
             </div>
-            {#<div class="onchange" style="display: none; text-align: right">
-                <select style="width:50px">
-                    <option value="" disabled selected></option>
-                    <option value="le">Le</option>
-                    <option value="la">La</option>
-                    <option value="l">L'</option>
-                </select>
-                <input type="text" class="span2" placeholder="Nom établissement" />
-            </div>#}
-            <input name="establishment_name" type="hidden" />   {# Nom établissement #}
-            <input name="establishment_type" type="hidden" />   {# Type établissement #}
-            <input name="street" type="hidden" />               {# Adresse #}
-            <input name="city" type="hidden" />                 {# Ville #}
-            <input name="location" type="hidden" />             {# Coordonnées géo #}
-            <input name="addr" type="hidden" />                 {# Adresse complète #}
+            {{ form_rest(form.place) }}
+            {{ form_widget(form._token) }}
         </div>
 
         <a class="btn plus"><i class="icon-plus"></i></a>
         <button type="submit" class="btn btn-success"><i class="icon-search icon-white"></i></button>
-
     </form>
 {% endblock %}
 
@@ -80,9 +58,12 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
-    {#<script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.geocomplete.min.js') }}"></script>#}
     <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.ui.timepicker.js') }}"></script>
     <script type="text/javascript">
+        /**
+         * Twig forms display trick
+         */
+        $('input, select').parent('div').css('display', 'inline-block');
         /**
          * Tooltip trick
          */
@@ -98,13 +79,18 @@
         /**
          * Placeholder dynamique
          */
-        $('#geo').focus(function() {
+        $('#wanted_place_formatted_address').focus(function() {
             $(this).attr('placeholder', 'Nom, Adresse');
         }).blur(function() {
             $(this).attr('placeholder', 'Où étiez-vous ?');
         });
 
-        var input = /** @type {HTMLInputElement} */(document.getElementById('geo'));
+        $('option').first().prop({
+            'disabled': 'disabled',
+            'selected': 'selected'
+        });
+
+        var input = /** @type {HTMLInputElement} */(document.getElementById('wanted_place_formatted_address'));
         var autocomplete = new google.maps.places.Autocomplete(input);
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
             var place = autocomplete.getPlace();
@@ -116,24 +102,22 @@
                 (place.address_components[2] && place.address_components[2].short_name || '')
               ].join(' ');
             }
-            var establishment_name = $('input[name="establishment_name"]');
-            var establishment_type = $('input[name="establishment_type"]');
-            var location           = $('input[name="location"]');
-            var route              = $('input[name="street"]');
-            var city               = $('input[name="city"]');
-            var addr               = $('input[name="addr"]');
+            var establishment_name = $('input[name="wanted[place][establishment_name]"]');
+            var establishment_type = $('input[name="wanted[place][establishment_type]"]');
+            var location           = $('input[name="wanted[place][location]"]');
+            var street             = $('input[name="wanted[place][street]"]');
+            var city               = $('input[name="wanted[place][city]"]');
 
             establishment_name.val(null);
             establishment_type.val(null);
             location.val(null);
-            route.val(null);
+            street.val(null);
             city.val(null);
-            addr.val(null);
 
             for(var i=0; i<place.address_components.length; ++i) {
                 switch(place.address_components[i].types[0]) {
                     case 'route':
-                        route.val(place.address_components[i].long_name);
+                        street.val(place.address_components[i].long_name);
                         break;
                     case 'locality':
                         city.val(place.address_components[i].long_name);
@@ -145,22 +129,24 @@
                     establishment_type.val(type);
 
                     if(type == "night_club" || type == "bar") {
-                        $('select.span2.establishment option[value="night_club"]').prop('selected', 'selected');
+                        $('option[value="night_club"]').prop('selected', 'selected');
                     } else if (type == "university") {
-                        $('select.span2.establishment option[value="university"]').prop('selected', 'selected');
+                        $('option[value="university"]').prop('selected', 'selected');
                     } else if (type == "school") {
-                        $('select.span2.establishment option[value="school"]').prop('selected', 'selected');
+                        $('option[value="school"]').prop('selected', 'selected');
                     } else if (type == "restaurant" || type == "food") {
-                        $('select.span2.establishment option[value="restaurant"]').prop('selected', 'selected');
+                        $('option[value="restaurant"]').prop('selected', 'selected');
                     } else if (type == "lodging") {
-                        $('select.span2.establishment option[value="lodging"]').prop('selected', 'selected');
+                        $('option[value="lodging"]').prop('selected', 'selected');
                     }
                 } else {
-                    $('select.span2.establishment option').prop('disabled', 'disabled');
+                    $('option').first().prop({
+                        'disabled': 'disabled',
+                        'selected': 'selected'
+                    });
                 }
-                addr.val(place.formatted_address);
                 if(place.geometry.location) {
-                    location.val(place.geometry.location.jb + ", " + place.geometry.location.kb);
+                    location.val(place.geometry.location.nb + ", " + place.geometry.location.ob);
                 }
             }
             //console.log(place);
@@ -171,8 +157,5 @@
             dateFormat: "dd/mm/yy"
         });
         $('.time').timepicker();
-        $('select').change(function() {
-            $('.onchange').fadeIn();
-        });
     </script>
 {% endblock %}

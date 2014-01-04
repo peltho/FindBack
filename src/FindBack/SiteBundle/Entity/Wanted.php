@@ -9,15 +9,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Wanted
 {
+
     /**
      * @var integer
      */
     private $id;
 
     /**
-     * @var \DateTime
+     * @var string
      */
-    private $date;
+    private $circumstances;
 
     /**
      * @var \FindBack\SiteBundle\Entity\User
@@ -35,9 +36,9 @@ class Wanted
     private $place;
 
     /**
-     * @var string
+     * @var \FindBack\SiteBundle\Entity\Date
      */
-    private $circumstances;
+    private $date;
 
 
     /**
@@ -51,26 +52,26 @@ class Wanted
     }
 
     /**
-     * Set date
+     * Set circumstances
      *
-     * @param \DateTime $date
+     * @param string $circumstances
      * @return Wanted
      */
-    public function setDate($date)
+    public function setCircumstances($circumstances)
     {
-        $this->date = $date;
+        $this->circumstances = $circumstances;
     
         return $this;
     }
 
     /**
-     * Get date
+     * Get circumstances
      *
-     * @return \DateTime 
+     * @return string 
      */
-    public function getDate()
+    public function getCircumstances()
     {
-        return $this->date;
+        return $this->circumstances;
     }
 
     /**
@@ -143,25 +144,25 @@ class Wanted
     }
 
     /**
-     * Set circumstances
+     * Set date
      *
-     * @param string $circumstances
+     * @param \FindBack\SiteBundle\Entity\Date $date
      * @return Wanted
      */
-    public function setCircumstances($circumstances)
+    public function setDate(\FindBack\SiteBundle\Entity\Date $date = null)
     {
-        $this->circumstances = $circumstances;
+        $this->date = $date;
     
         return $this;
     }
 
     /**
-     * Get circumstances
+     * Get date
      *
-     * @return string 
+     * @return \FindBack\SiteBundle\Entity\Date 
      */
-    public function getCircumstances()
+    public function getDate()
     {
-        return $this->circumstances;
+        return $this->date;
     }
 }

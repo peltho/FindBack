@@ -38,31 +38,32 @@
 {% block body %}
 
     <div class="overlay">
-        <div class="dialog">
-            <h4>Inscrivez-vous gratuitement</h4>
-            <form action="{{ path('register_check')}}" method="post" {{ form_enctype(form) }}>
-                {{ form_widget(form) }}
-                <div align="center" style="margin-top: 10px;"><input class="btn btn-primary" type="submit" value="S'inscrire"/></div>
-            </form>
-        </div>
+        <div class="overlay_content">
+            <div class="dialog">
+                <h4>Inscrivez-vous gratuitement</h4>
+                <form action="{{ path('register_check')}}" method="post" {{ form_enctype(form) }}>
+                    {{ form_widget(form) }}
+                    <div align="center" style="margin-top: 10px;"><input class="btn btn-primary" type="submit" value="S'inscrire"/></div>
+                </form>
+            </div>
 
-        <div class="legend">
-            <p>Vous avez fait une rencontre lors d'un évenement marquant, <br />
-                Mais vous n'avez pas pu échanger vos coordonnées ?<br />
-                Vous souhaitez le ou la retrouver ?<br />
-                Il ou Elle vous recherche peut-être...</p>
-            <h1>FindBack est là pour vous !</h1>
+            <div class="legend">
+                <p>Vous avez fait une rencontre lors d'un évenement marquant, <br />
+                    Mais vous n'avez pas pu échanger vos coordonnées ?<br />
+                    Vous souhaitez le ou la retrouver ?<br />
+                    Il ou Elle vous recherche peut-être...</p>
+                <h1>FindBack est là pour vous !</h1>
+                <div class="counter"><p>Déjà <span class="color">34104</span> personnes se sont retrouvées !</p></div>
+            </div>
 
-            <div class="counter"><p>Déjà <span class="color">34104</span> personnes se sont retrouvées !</p></div>
-        </div>
-
-        <div class="footer">
-            <ul>
-                <li><a href="#">Confidentialité</a></li>
-                <li><a href="#">Conditions</a></li>
-                <li><a href="#">À propos</a></li>
-            </ul>
-            <p>© 2013 FindBack</p>
+            <div class="footer">
+                <ul>
+                    <li><a href="#">Confidentialité</a></li>
+                    <li><a href="#">Conditions</a></li>
+                    <li><a href="#">À propos</a></li>
+                </ul>
+                <p>© 2013 FindBack</p>
+            </div>
         </div>
     </div>
 

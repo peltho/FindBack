@@ -23,14 +23,11 @@
             margin-left: 10px;
             width: 110px;
         }
-        aside button {
-            width: 200px;
-        }
     </style>
 {% endblock %}
 
 {% block left_title %}
-    <h5><i class="icon-user"></i> Mon compte  <i class="icon-info-sign" style="vertical-align:middle;cursor: pointer;"></i></h5>
+    <h5><i class="icon-user"></i> Mon compte</h5>
 {% endblock %}
 {% block left_content %}
     <div class="alert alert-info hide">
@@ -42,12 +39,12 @@
         <ul class="well">
             <li><span class="identity">Nom</span>{{ user.username }} {{ user.lastname }}</li>
             <li><span class="identity">Âge</span>{{ user.getAge }} ans</li>
-            <li><span class="identity">Recherches</span>3</li>
-            <li><span class="identity">Retrouvailles</span>{{ user.found }}</li>
+            <li><span class="identity">Recherches</span>4</li>
+            <li><span class="identity">Retrouvailles</span>1{#{{ user.found }}#}</li>
             <li><span class="identity">Email <i class="icon-eye-close"></i></span><a href="mailto:{{ user.email }}">{{ user.email }}</a></li>
             <li><span class="identity">Facebook</span><a href="{{ user.facebookPage }}" target="_blank">Profil</a></li>
             {% if user.website %}
-                <li><span class="identity">Site Web</span><a href="{{ user.website }}" target="_blank">{{ user.website }}</a></li>
+                <li><span class="identity">Site Web</span><a href="http://{{ user.website }}" target="_blank">{{ user.website }}</a></li>
             {% endif %}
         </ul>
     </div>
@@ -160,7 +157,7 @@
                     <td>Confirmé <i class="icon-ok"></i></td>
                 </tr>
                 <tr class="info">
-                    <td><a href="#">Bar Rafaeli</a></td>
+                    <td><a href="#">Bar Refaeli</a></td>
                     <td>En attente de confirmation... <i class="icon-time"></i></td>
                 </tr>
             </tbody>
@@ -175,7 +172,7 @@
 {% block right_content %}
     <div align="center">
         <p><a class="btn" href="{{ path('account_edit') }}"><b>Éditer mes informations</b></a></p>
-        <p><button class="btn btn-primary"><b>Voir mon profil public</b></button></p>
+        <p><a class="btn btn-primary" href="#"><b>Voir mon profil public</b></a></p>
         {#<p><button class="btn btn-danger"><b>Supprimer mon compte</b></button></p>#}
     </div>
 {% endblock %}
@@ -196,7 +193,7 @@
     {{ parent() }}
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD4QDBP3GO6fXiHJGSLweZwPpbaMf1FSJw&sensor=false"></script>
     <script type="text/javascript">
-        $('.icon-info-sign').click(function() {
+        $('.identity > .icon-eye-close').click(function() {
             $('.alert.alert-info.hide').toggle('slow');
         });
         $('ul.nav.nav-tabs li a[data-toggle="tab"]').click(function() {
@@ -213,9 +210,9 @@
                 });
 
                 // Ceci ds une boucle qui liste les lieux
-
+                // Il faut récupérer les lieux et plus exactement leur "location" ds la bdd
                 var marker = new google.maps.Marker({
-                    position: latlng,
+                    position: new google.maps.LatLng(43.52935348728217, 5.447099804878235), //latlng,
                     map: map,
                     title: "Property location"
                 });

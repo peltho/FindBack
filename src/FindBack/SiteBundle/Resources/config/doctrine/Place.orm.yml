@@ -8,18 +8,26 @@ FindBack\SiteBundle\Entity\Place:
             generator:
                 strategy: AUTO
     fields:
+        formattedAddress:
+            type: string
+            length: 255
         city:
             type: string
             length: 60
         street:
             type: string
             length: 60
-        establishment:
+        location:
+            type: string
+            length: 255
+        establishmentName:
             type: string
             length: 60
-        name:
+            nullable: true
+        establishmentType:
             type: string
             length: 60
+            nullable: true
     manyToMany:
         users:
             targetEntity: User

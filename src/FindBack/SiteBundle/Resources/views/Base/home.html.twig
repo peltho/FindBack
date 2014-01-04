@@ -5,7 +5,7 @@
 {% endblock %}
 {% block left_content %}
     <div class="buttons">
-        <a class="search-btn" style="margin-right: 20px;" href="{{ path('search') }}">Poster un avis de recherche</a>
+        <a class="search-btn" style="margin-right: 20px;" href="{{ path('wanted_publish') }}">Poster un avis de recherche</a>
         <a class="search-btn" href="{{ path('wanted') }}">Êtes-vous recherché ?</a>
     </div>
     {#<div class="well" style="margin:20px 30px;">
@@ -34,22 +34,22 @@
     <h5><i class="icon-search"></i> Derniers avis de recherche à</h5>
 {% endblock %}
 {% block right_content %}
-    <a href="#" data-toggle="collapse" data-target="#wanted" class="town_label">
+    <div data-toggle="collapse" data-target="#wanted" class="town_label">
         <span class="label">Aix-en-Provence</span>
-    </a>
+    </div>
     <div id="wanted" class="collapse in">
         <ul class="last_wanted">
             <li><i class="icon-chevron-right"></i> <span class="badge">{{ "NOW"|date('d M') }}</span> <a href="#">Un homme au <b>Mistral</b></a></li>
             <li><i class="icon-chevron-right"></i> <span class="badge">19 Jul</span> <a href="#">Une femme à la <b>Verrerie</b></a></li>
         </ul>
     </div>
-    <a href="#" data-toggle="collapse" data-target="#wanted2" class="town_label">
+    <div data-toggle="collapse" data-target="#wanted2" class="town_label">
         <span class="label">Marseille</span>
-    </a>
+    </div>
     <div id="wanted2" class="collapse in">
         <ul class="last_wanted">
             <li><i class="icon-chevron-right"></i> <span class="badge">19 Jul</span> <a href="#">Une femme au <b>Barberousse</b></a></li>
-            <li><i class="icon-chevron-right"></i> <span class="badge">18 Jul</span> <a href="#">Un homme à <b>IPN</b></a></li>
+            <li><i class="icon-chevron-right"></i> <span class="badge">18 Jul</span> <a href="#">Un homme au <b>Black Unicorn</b></a></li>
         </ul>
     </div>
 {% endblock %}
@@ -93,24 +93,6 @@
                     })
                     .html(city);
             cityBlock.appendTo($('.active_city a'));
-            {#
-            var map = L.map('map').setView([43.5263, 5.44539], 12);
-
-            L.tileLayer('http://{s}.tile.cloudmade.com/2254cc037a6b4a789dba36d97d29b136/997/256/{z}/{x}/{y}.png', {
-                maxZoom: 18
-            }).addTo(map);
-
-            var popup = L.popup();
-
-            function onMapClick(e) {
-                popup
-                        .setLatLng(e.latlng)
-                        .setContent("Localisation : " + e.latlng.toString())
-                        .openOn(map);
-            }
-
-            map.on('click', onMapClick);
-            #}
         });
     </script>
 {% endblock %}

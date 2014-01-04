@@ -10,6 +10,7 @@
         .well.extended, .well.extended > div {
             width: auto;
             display: block;
+            clear: both;
         }
         .well {
             width: 275px;
@@ -27,7 +28,7 @@
         input[name*="user["] {
             width: 130px;
             height: 10px;
-            margin-bottom: 1px;
+            margin-bottom: 5px;
             font-size: 10px;
         }
         form div {
@@ -37,7 +38,7 @@
             width: 130px;
             height: 20px;
             font-size: 10px;
-            margin-bottom: 1px;
+            margin-bottom: 5px;
             padding: 0;
         }
         textarea {
@@ -67,13 +68,13 @@
         <h5>Description physique</h5>
         <ul class="well">
             <li><span class="identity">Sexe</span>{{ form_row(form.gender) }}</li>
-            <li><span class="identity">Taille</span>{{ form_row(form.description.height) }}</li>
-            <li><span class="identity">Type</span>{{ form_row(form.description.type) }}</li>
-            <li><span class="identity">Cheveux</span>{{ form_row(form.description.hairColor) }}</li>
-            <li><span class="identity">Coupe</span>{{ form_row(form.description.hairCut) }}</li>
-            <li><span class="identity">Yeux</span>{{ form_row(form.description.eyes) }}</li>
-            <li><span class="identity">Piercing</span>{{ form_row(form.description.piercing) }}</li>
-            <li><span class="identity">Tatouage</span>{{ form_row(form.description.tattoo) }}</li>
+            <li>{{ form_row(form.description.height) }}</li>
+            <li>{{ form_row(form.description.type) }}</li>
+            <li>{{ form_row(form.description.hairColor) }}</li>
+            <li>{{ form_row(form.description.hairCut) }}</li>
+            <li>{{ form_row(form.description.eyes) }}</li>
+            <li>{{ form_row(form.description.piercing) }}</li>
+            <li>{{ form_row(form.description.tattoo) }}</li>
         </ul>
     </div>
     <h5>Lieux fréquentés</h5>
@@ -101,7 +102,6 @@
 
 {% block right_content %}
     <div align="center">
-        {{ form_widget(form._token) }}
         <p><input type="submit" class="btn btn-success"  value="Terminer" /></p>
         <p><a href="{{ path('account') }}" class="btn btn-danger" style="width: 175px;"><b>Annuler</b></a></p>
     </div>
@@ -117,6 +117,7 @@
             {{ form_row(form.biography) }}
         </div>
     </div>
+        {{ form_widget(form._token) }}
     </form>
 {% endblock %}
 

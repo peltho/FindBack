@@ -8,8 +8,8 @@ FindBack\SiteBundle\Entity\Wanted:
             generator:
                 strategy: AUTO
     fields:
-        date:
-            type: date
+#        date:
+#            type: date
         circumstances:
             type: text
     manyToOne:
@@ -21,4 +21,7 @@ FindBack\SiteBundle\Entity\Wanted:
             inversedBy: wanteds
         place:
             targetEntity: Place
+            inversedBy: wanteds
+        date:
+            targetEntity: Date
             inversedBy: wanteds

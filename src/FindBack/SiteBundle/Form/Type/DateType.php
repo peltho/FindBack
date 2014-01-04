@@ -6,17 +6,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class WantedType extends AbstractType
+class DateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('place', new PlaceType(), array('label' => false))
-            ->add('date', new DateType(), array('label' => false))
-            ->add('description', new DescriptionType(), array('required' => false, 'label' => false))
-            ->add('circumstances', 'textarea', array('label' => false,
+            ->add('date', 'text', array('label' => false,
                 'attr' => array(
-                    'placeholder' => 'Comment vous êtes-vous rencontrés ?'
+                    'placeholder' => 'Quand ?',
+                    'class' => 'date'
+                )
+            ))
+            ->add('time', 'text', array('label' => false,
+                'attr' => array(
+                    'placeholder' => 'À partir de quelle heure ?',
+                    'class' => 'time'
                 ),
                 'required' => false
             ));
@@ -25,13 +29,12 @@ class WantedType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'FindBack\SiteBundle\Entity\Wanted',
-            'cascade_validation' => true,
+            'data_class' => 'FindBack\SiteBundle\Entity\Date',
         ));
     }
 
     public function getName()
     {
-        return 'wanted';
+        return 'date';
     }
 }

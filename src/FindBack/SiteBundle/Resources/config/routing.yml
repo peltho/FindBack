@@ -23,10 +23,18 @@ account_edit:
     pattern:  /account/edit
     defaults: { _controller: FindBackSiteBundle:User:edit }
 
-search:
-    pattern:  /search
-    defaults: { _controller: FindBackSiteBundle:Wanted:search }
-
 wanted:
     pattern:  /wanted
     defaults: { _controller: FindBackSiteBundle:Wanted:index }
+
+wanted_publish:
+    pattern:  /wanted/publish
+    defaults: { _controller: FindBackSiteBundle:Wanted:publish }
+
+wanted_check:
+    pattern:  /wanted/check
+    defaults: { _controller: FindBackSiteBundle:Wanted:check }
+
+wanted_show:
+    pattern:  /wanted/{id}/show
+    defaults: { _controller: FindBackSiteBundle:Wanted:show }

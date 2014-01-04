@@ -11,7 +11,7 @@ class DescriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('height', 'choice', array('label' => false,
+            /*->add('height', 'choice', array('label' => 'Taille',
                 'choices' => array(
                     '< 1m40' => '< 1m40',
                     '1m40'   => '1m40',
@@ -28,9 +28,11 @@ class DescriptionType extends AbstractType
                     '1m95'   => '1m95',
                     '2m00'   => '2m00',
                     '> 2m00' => '> 2m00'
-                )
-            ))
-            ->add('type', 'choice', array('label' => false,
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez une taille')
+            ))*/
+            ->add('height', 'text', array('label' => 'Taille'))
+            ->add('type', 'choice', array('label' => 'Origines',
                 'choices' => array(
                     'Européen'  => 'Européen',
                     'Asiatique' => 'Asiatique',
@@ -40,22 +42,23 @@ class DescriptionType extends AbstractType
                     'Maghrébin' => 'Maghrébin'
                 )
             ))
-            ->add('hairColor', 'choice', array('label' => false,
+            ->add('hairColor', 'choice', array('label' => 'Cheveux',
                 'choices' => array(
                     'Noirs'  => 'Noirs',
                     'Bruns'  => 'Bruns',
                     'Blonds' => 'Blonds',
                     'Roux'   => 'Roux',
-                    'Blancs' => 'Blancs'
+                    'Blancs' => 'Blancs',
+                    'Autre'  => 'Autre'
                 )
             ))
-            ->add('hairCut', 'choice', array('label' => false,
+            ->add('hairCut', 'choice', array('label' => 'Coupe',
                 'choices' => array(
                     'Courts' => 'Courts',
                     'Longs'  => 'Longs'
                 )
             ))
-            ->add('eyes', 'choice', array('label' => false,
+            ->add('eyes', 'choice', array('label' => 'Yeux',
                 'choices' => array(
                     'Marrons' => 'Marrons',
                     'Verts'   => 'Verts',
@@ -65,13 +68,13 @@ class DescriptionType extends AbstractType
                     'Jaunes'  => 'Jaunes'
                 )
             ))
-            ->add('piercing', 'choice', array('label' => false,
+            ->add('piercing', 'choice', array('label' => 'Piercing',
                 'choices' => array(
                     'Non' => 'Non',
                     'Oui' => 'Oui'
                 )
             ))
-            ->add('tattoo', 'choice', array('label' => false,
+            ->add('tattoo', 'choice', array('label' => 'Tatouage',
                 'choices' => array(
                     'Non' => 'Non',
                     'Oui' => 'Oui'

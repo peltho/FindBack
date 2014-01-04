@@ -17,6 +17,11 @@ class Place
     /**
      * @var string
      */
+    private $formattedAddress;
+
+    /**
+     * @var string
+     */
     private $city;
 
     /**
@@ -27,12 +32,17 @@ class Place
     /**
      * @var string
      */
-    private $establishment;
+    private $location;
 
     /**
      * @var string
      */
-    private $name;
+    private $establishmentName;
+
+    /**
+     * @var string
+     */
+    private $establishmentType;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -61,6 +71,29 @@ class Place
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set formattedAddress
+     *
+     * @param string $formattedAddress
+     * @return Place
+     */
+    public function setFormattedAddress($formattedAddress)
+    {
+        $this->formattedAddress = $formattedAddress;
+    
+        return $this;
+    }
+
+    /**
+     * Get formattedAddress
+     *
+     * @return string 
+     */
+    public function getFormattedAddress()
+    {
+        return $this->formattedAddress;
     }
 
     /**
@@ -110,49 +143,72 @@ class Place
     }
 
     /**
-     * Set establishment
+     * Set location
      *
-     * @param string $establishment
+     * @param string $location
      * @return Place
      */
-    public function setEstablishment($establishment)
+    public function setLocation($location)
     {
-        $this->establishment = $establishment;
+        $this->location = $location;
     
         return $this;
     }
 
     /**
-     * Get establishment
+     * Get location
      *
      * @return string 
      */
-    public function getEstablishment()
+    public function getLocation()
     {
-        return $this->establishment;
+        return $this->location;
     }
 
     /**
-     * Set name
+     * Set establishmentName
      *
-     * @param string $name
+     * @param string $establishmentName
      * @return Place
      */
-    public function setName($name)
+    public function setEstablishmentName($establishmentName)
     {
-        $this->name = $name;
+        $this->establishmentName = $establishmentName;
     
         return $this;
     }
 
     /**
-     * Get name
+     * Get establishmentName
      *
      * @return string 
      */
-    public function getName()
+    public function getEstablishmentName()
     {
-        return $this->name;
+        return $this->establishmentName;
+    }
+
+    /**
+     * Set establishmentType
+     *
+     * @param string $establishmentType
+     * @return Place
+     */
+    public function setEstablishmentType($establishmentType)
+    {
+        $this->establishmentType = $establishmentType;
+    
+        return $this;
+    }
+
+    /**
+     * Get establishmentType
+     *
+     * @return string 
+     */
+    public function getEstablishmentType()
+    {
+        return $this->establishmentType;
     }
 
     /**

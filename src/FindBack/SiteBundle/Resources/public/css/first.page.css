@@ -1,12 +1,14 @@
 .overlay {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.overlay .overlay_content {
     color: #fff;
     width: 1100px;
     position: relative;
-    margin: 100px auto 0;
-    background-color: rgba(0, 0, 0, 0.4);
+    margin: auto;
     overflow: hidden;
-    padding: 30px;
-    margin-bottom: 30px;
+    padding: 150px 30px 30px 30px;    
 }
 
 .dialog {
@@ -42,7 +44,8 @@
     -moz-border-radius: 4px;
     border-radius: 4px;
     color: #b94a48;
-    margin: 0;
+    margin-bottom: 1px;
+    text-align: center;
 }
 
 .dialog h4 {
@@ -79,7 +82,7 @@
     margin-left: 10px;
 }
 
-.choice input[value="female"], .choice label[for*="gender_1"] {
+.choice input[value="Female"], .choice label[for*="gender_1"] {
     float: right;
 }
 

@@ -1,0 +1,19 @@
+FindBack\SiteBundle\Entity\Date:
+    type:  entity
+    repositoryClass: FindBack\SiteBundle\Entity\DateRepository
+    table: dates
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: date
+        time:
+            type: time
+            nullable: true
+    oneToMany:
+        wanteds:
+            targetEntity: Wanted
+            mappedBy: date
