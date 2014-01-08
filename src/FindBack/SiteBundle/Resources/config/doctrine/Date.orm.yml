@@ -9,9 +9,9 @@ FindBack\SiteBundle\Entity\Date:
                 strategy: AUTO
     fields:
         date:
-            type: date
+            type: string
         time:
-            type: time
+            type: string
             nullable: true
     oneToMany:
         wanteds:

@@ -1,0 +1,59 @@
+.bloc {
+    float: left;
+}
+label {
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+}
+textarea {
+    height: 150px;
+    width: 545px;
+}
+#wanted_description div {
+    margin-bottom: 7px;
+}
+select[name*="wanted[description]"] {
+    width: 175px;
+}
+.chosen-container {
+    margin-bottom: 10px;
+}
+#wanted_description_height {
+    width: 165px;
+}
+#wanted_description_height label {
+    width: 90px;
+}
+#slider-range {
+    width: 175px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+}
+#wanted_place_formatted_address {
+    width: 300px;
+}
+#wanted_place_establishment_type {
+    margin-left: 5px;
+}
+#wanted_date_date {
+    display: inline-block;
+    width: 120px;
+    position: relative;
+    float: left;
+}
+#wanted_date_time {
+    display: inline-block;
+    width: 160px;
+    float: left;
+    margin-left: 5px;
+    position: relative;
+}
+aside {
+    display: none;
+}
+article {
+    width: auto;
+    overflow: visible;
+    float: none;
+}

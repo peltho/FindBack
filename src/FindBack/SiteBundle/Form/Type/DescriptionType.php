@@ -31,6 +31,12 @@ class DescriptionType extends AbstractType
                 ),
                 'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez une taille')
             ))*/
+            ->add('gender', 'choice', array('label' => 'Sexe',
+                'choices' => array(
+                    'Homme' => 'Homme',
+                    'Femme' => 'Femme'
+                ))
+            )
             ->add('height', 'text', array('label' => 'Taille'))
             ->add('type', 'choice', array('label' => 'Origines',
                 'choices' => array(
@@ -50,7 +56,8 @@ class DescriptionType extends AbstractType
                     'Roux'   => 'Roux',
                     'Blancs' => 'Blancs',
                     'Autre'  => 'Autre'
-                )
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez une couleur')
             ))
             ->add('hairCut', 'choice', array('label' => 'Coupe',
                 'choices' => array(
@@ -60,24 +67,27 @@ class DescriptionType extends AbstractType
             ))
             ->add('eyes', 'choice', array('label' => 'Yeux',
                 'choices' => array(
+                    'NA'      => 'Ne sais pas',
                     'Marrons' => 'Marrons',
                     'Verts'   => 'Verts',
                     'Bleus'   => 'Bleus',
                     'Vérons'  => 'Vérons',
                     'Gris'    => 'Gris',
-                    'Jaunes'  => 'Jaunes'
+                    'Jaunes'  => 'Jaunes',
                 )
             ))
             ->add('piercing', 'choice', array('label' => 'Piercing',
                 'choices' => array(
+                    'NA'  => 'Ne sais pas',
                     'Non' => 'Non',
-                    'Oui' => 'Oui'
+                    'Oui' => 'Oui',
                 )
             ))
             ->add('tattoo', 'choice', array('label' => 'Tatouage',
                 'choices' => array(
+                    'NA'  => 'Ne sais pas',
                     'Non' => 'Non',
-                    'Oui' => 'Oui'
+                    'Oui' => 'Oui',
                 )
             ));
     }

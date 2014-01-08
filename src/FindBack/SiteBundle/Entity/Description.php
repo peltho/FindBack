@@ -17,6 +17,11 @@ class Description
     /**
      * @var string
      */
+    private $gender;
+
+    /**
+     * @var string
+     */
     private $height;
 
     /**
@@ -54,10 +59,6 @@ class Description
      */
     private $user;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $wanteds;
 
     /**
      * Constructor
@@ -216,39 +217,6 @@ class Description
     }
 
     /**
-     * Add wanteds
-     *
-     * @param \FindBack\SiteBundle\Entity\Wanted $wanteds
-     * @return Description
-     */
-    public function addWanted(\FindBack\SiteBundle\Entity\Wanted $wanteds)
-    {
-        $this->wanteds[] = $wanteds;
-    
-        return $this;
-    }
-
-    /**
-     * Remove wanteds
-     *
-     * @param \FindBack\SiteBundle\Entity\Wanted $wanteds
-     */
-    public function removeWanted(\FindBack\SiteBundle\Entity\Wanted $wanteds)
-    {
-        $this->wanteds->removeElement($wanteds);
-    }
-
-    /**
-     * Get wanteds
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getWanteds()
-    {
-        return $this->wanteds;
-    }
-
-    /**
      * Set piercing
      *
      * @param string $piercing
@@ -293,4 +261,28 @@ class Description
     {
         return $this->tattoo;
     }
+
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     * @return Description
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string 
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
 }

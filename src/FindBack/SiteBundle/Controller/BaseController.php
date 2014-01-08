@@ -17,7 +17,21 @@ class BaseController extends Controller
         $securityContext = $this->container->get('security.context');
         if($securityContext->isGranted('IS_AUTHENTICATED_FULLY'))
         {
-            return $this->render('FindBackSiteBundle:Base:home.html.twig');
+            $wantedRepo = $this->getDoctrine()->getRepository('FindBack\SiteBundle\Entity\Wanted');
+            $lastWanteds = $wantedRepo->findBy(array(), array('id' => 'DESC'), 10); // 10 derniers avis de recherche
+
+            // Ici on récupère les villes des 10 derniers avis de recherche
+            /*$cities = array();
+            foreach($lastWanteds as $wanted) {
+                if(!in_array($wanted->getPlace()->getCity(), $cities))
+                    array_push($cities, $wanted->getPlace()->getCity());
+            }*/
+
+
+            return $this->render('FindBackSiteBundle:Base:home.html.twig', array(
+                'lastWanteds' => $lastWanteds,
+                //'cities' => $cities
+            ));
         }
         else
         {

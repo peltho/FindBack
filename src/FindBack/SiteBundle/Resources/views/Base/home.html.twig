@@ -8,9 +8,6 @@
         <a class="search-btn" style="margin-right: 20px;" href="{{ path('wanted_publish') }}">Poster un avis de recherche</a>
         <a class="search-btn" href="{{ path('wanted') }}">Êtes-vous recherché ?</a>
     </div>
-    {#<div class="well" style="margin:20px 30px;">
-        <button type="button" class="close" style="font-size: 15px;" data-dismiss="alert">&times;</button>
-    #}
     <div style="margin: 30px 30px;">
         <hr />
         <div>
@@ -34,24 +31,22 @@
     <h5><i class="icon-search"></i> Derniers avis de recherche à</h5>
 {% endblock %}
 {% block right_content %}
-    <div data-toggle="collapse" data-target="#wanted" class="town_label">
-        <span class="label">Aix-en-Provence</span>
-    </div>
-    <div id="wanted" class="collapse in">
-        <ul class="last_wanted">
-            <li><i class="icon-chevron-right"></i> <span class="badge">{{ "NOW"|date('d M') }}</span> <a href="#">Un homme au <b>Mistral</b></a></li>
-            <li><i class="icon-chevron-right"></i> <span class="badge">19 Jul</span> <a href="#">Une femme à la <b>Verrerie</b></a></li>
-        </ul>
-    </div>
-    <div data-toggle="collapse" data-target="#wanted2" class="town_label">
-        <span class="label">Marseille</span>
-    </div>
-    <div id="wanted2" class="collapse in">
-        <ul class="last_wanted">
-            <li><i class="icon-chevron-right"></i> <span class="badge">19 Jul</span> <a href="#">Une femme au <b>Barberousse</b></a></li>
-            <li><i class="icon-chevron-right"></i> <span class="badge">18 Jul</span> <a href="#">Un homme au <b>Black Unicorn</b></a></li>
-        </ul>
-    </div>
+
+    {% for wanted in lastWanteds %}
+        {{ loop.index }}
+            {#<div data-toggle="collapse" data-target="#wanted{{ wanted.id }}" class="town_label">
+                <span class="label">{{ wanted.place.city }}</span>
+            </div>
+            <div id="wanted{{ wanted.id }}" class="collapse in">
+                <ul class="last_wanted">
+                    <li><i class="icon-chevron-right"></i>
+                        <span class="badge">{{ wanted.date.date }}</span>
+                        <a href="{{ path('wanted_show', {'id': wanted.id}) }}"><b>{{ wanted.place.establishmentName }}</b> : un(e) {{ wanted.description.gender }}</a></li>
+                </ul>
+            </div>#}
+        {#{% endfor %}#}
+    {% endfor %}
+
 {% endblock %}
 
 {% block right_content2 %}

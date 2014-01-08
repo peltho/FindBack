@@ -324,3 +324,34 @@ aside .label {
 .table-hover tbody tr {
     background-color: #fff;
 }
+
+.footer {
+    clear: both;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 11px;
+}
+
+.footer ul {
+    list-style: none;
+}
+
+.footer ul li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.footer ul li a {
+    opacity: 0.5;
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer ul li a:hover {
+    color: #0066CC;
+    opacity: 1;
+}
+
+.footer p {
+    color: #555;
+}

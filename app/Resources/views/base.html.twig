@@ -2,13 +2,9 @@
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
     <head>
         <meta charset="UTF-8" />
-        {#<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />#}
         <title>{% block title %}FindBack{% endblock %}</title>
         {% block stylesheets %}
             <link href="{{ asset('bundles/findbacksite/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
-            <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet" />
-            <link href="{{ asset('bundles/fanforfunleaflet/css/leaflet.css') }}" type="text/css" rel="stylesheet" />
-            <link href="{{ asset('bundles/fanforfunleaflet/css/leaflet.ie.css') }}" type="text/css" rel="stylesheet" />
             <link href="{{ asset('bundles/findbacksite/css/base.css') }}" type="text/css" rel="stylesheet" />
             {% if form is defined %}{{ form_stylesheet(form) }}{% endif %}
         {% endblock %}
@@ -17,21 +13,19 @@
     <body>
         {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
         {% block header %}
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <h3><a href="{{ path('find_back_site_homepage') }}">FindBack</a></h3>
-                {% block user %}
-                {% endblock %}
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <h3><a href="{{ path('find_back_site_homepage') }}">FindBack</a></h3>
+                    {{ block('user') }}
+                </div>
             </div>
-        </div>
         {% endblock %}
-        {% block body %}
-        {% endblock %}
+        {{ block('body') }}
+        {{ block('footer') }}
         {% block javascripts %}
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.min.js') }}"></script>
             <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/bootstrap.min.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('bundles/fanforfunleaflet/js/leaflet.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/base.js') }}"></script>
             <script type="text/javascript">
                 function goLogIn(){

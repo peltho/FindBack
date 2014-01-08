@@ -15,12 +15,12 @@ class Date
     private $id;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $date;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $time;
 
@@ -50,7 +50,7 @@ class Date
     /**
      * Set date
      *
-     * @param \DateTime $date
+     * @param string $date
      * @return Date
      */
     public function setDate($date)
@@ -63,7 +63,7 @@ class Date
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return string 
      */
     public function getDate()
     {
@@ -73,7 +73,7 @@ class Date
     /**
      * Set time
      *
-     * @param \DateTime $time
+     * @param string $time
      * @return Date
      */
     public function setTime($time)
@@ -86,7 +86,7 @@ class Date
     /**
      * Get time
      *
-     * @return \DateTime 
+     * @return string 
      */
     public function getTime()
     {

@@ -8,6 +8,9 @@ FindBack\SiteBundle\Entity\Description:
             generator:
                 strategy: AUTO
     fields:
+        gender:
+            type: string
+            length: 10
         height:
             type: string
             length: 30
@@ -42,7 +45,3 @@ FindBack\SiteBundle\Entity\Description:
             joinColumn:
                 name: user_id
                 referencedColumnName: id
-    oneToMany:
-        wanteds:
-            targetEntity: Wanted
-            mappedBy: description
