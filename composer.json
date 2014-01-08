@@ -6,20 +6,6 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
-    "repositories": {
-        "leaflet/leaflet": {
-            "type": "package",
-            "package": {
-                "name": "leaflet/leaflet",
-                "version": "0.6.2",
-                "source": {
-                    "url": "https://github.com/Leaflet/Leaflet.git",
-                    "type": "git",
-                    "reference": "tags/v0.6.2"
-                }
-            }
-        }
-    },
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.3.*",
@@ -34,7 +20,6 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
 
-        "fanforfun/leaflet-bundle": "dev-master",
         "genemu/form-bundle": "2.2.*",
         "friendsofsymfony/facebook-bundle": "1.2.*"
     },
