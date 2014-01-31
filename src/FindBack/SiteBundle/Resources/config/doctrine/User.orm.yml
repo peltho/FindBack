@@ -50,6 +50,7 @@ FindBack\SiteBundle\Entity\User:
         found:
             type: integer
             length: 11
+            nullable: true
         biography:
             type: text
             nullable: true

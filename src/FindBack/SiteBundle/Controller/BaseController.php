@@ -21,11 +21,11 @@ class BaseController extends Controller
             $lastWanteds = $wantedRepo->findBy(array(), array('id' => 'DESC'), 10); // 10 derniers avis de recherche
 
             // Ici on récupère les villes des 10 derniers avis de recherche
-            /*$cities = array();
+            $cities = array();
             foreach($lastWanteds as $wanted) {
                 if(!in_array($wanted->getPlace()->getCity(), $cities))
                     array_push($cities, $wanted->getPlace()->getCity());
-            }*/
+            }
 
 
             return $this->render('FindBackSiteBundle:Base:home.html.twig', array(
@@ -72,7 +72,6 @@ class BaseController extends Controller
             $encoder = $factory->getEncoder($user);
             $password = $encoder->encodePassword($form->getData()->getPassword(), $user->getSalt());
             $user->setPassword($password);
-            $user->setDescription(new Description());
             $em->persist($user);
             $em->flush();
 

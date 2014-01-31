@@ -38,14 +38,14 @@ class DescriptionType extends AbstractType
                 ))
             )
             ->add('height', 'text', array('label' => 'Taille'))
-            ->add('type', 'choice', array('label' => 'Origines',
+            ->add('type', 'choice', array('label' => 'Type',
                 'choices' => array(
                     'Européen'  => 'Européen',
                     'Asiatique' => 'Asiatique',
                     'Indien'    => 'Indien',
                     'Afro'      => 'Afro',
-                    'Métisse'   => 'Métisse',
-                    'Maghrébin' => 'Maghrébin'
+                    'Metisse'   => 'Métisse',
+                    'Maghrebin' => 'Maghrébin'
                 )
             ))
             ->add('hairColor', 'choice', array('label' => 'Cheveux',
@@ -61,20 +61,32 @@ class DescriptionType extends AbstractType
             ))
             ->add('hairCut', 'choice', array('label' => 'Coupe',
                 'choices' => array(
-                    'Courts' => 'Courts',
-                    'Longs'  => 'Longs'
-                )
+                    'Attaches' => 'Attachés',
+                    'Chauve'  => 'Chauve',
+                    'Courts'  => 'Courts',
+                    'Rases'   => 'Rasés',
+                    'Crepus'  => 'Crépus',
+                    'Boucles' => 'Bouclés',
+                    'Lisses'  => 'Lisses',
+                    'Carre'   => 'Carré',
+                    'Chignon' => 'Chignon',
+                    'Longs'   => 'Longs',
+                    'Cheval'  => 'Queue de cheval',
+                    'Degrade' => 'Dégradé',
+                    'Frange'  => 'Frange',
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez une coupe')
             ))
             ->add('eyes', 'choice', array('label' => 'Yeux',
                 'choices' => array(
-                    'NA'      => 'Ne sais pas',
                     'Marrons' => 'Marrons',
                     'Verts'   => 'Verts',
                     'Bleus'   => 'Bleus',
                     'Vérons'  => 'Vérons',
                     'Gris'    => 'Gris',
                     'Jaunes'  => 'Jaunes',
-                )
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez une couleur')
             ))
             ->add('piercing', 'choice', array('label' => 'Piercing',
                 'choices' => array(

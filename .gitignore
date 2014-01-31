@@ -14,3 +14,6 @@ web/bundles/*
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+
+# Other directories
+.idea/

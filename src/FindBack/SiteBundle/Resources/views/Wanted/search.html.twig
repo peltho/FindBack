@@ -78,7 +78,8 @@
             $("#slider-range").slider("values", 0) + " - " + $("#slider-range").slider("values", 1) + " cm"
         );
 
-        $('#wanted_description_hairColor').attr('multiple', 'multiple').chosen({max_selected_options: 2});
+        $('#wanted_description_hairCut').attr('multiple', 'multiple').chosen();
+        $('#wanted_description_hairColor, #wanted_description_eyes').attr('multiple', 'multiple').chosen({max_selected_options: 2});
         $('.chosen-choices').css({'border-color': '#ccc', 'background-image': 'none', 'border-radius': '3px'});
 
         var place;
@@ -141,7 +142,7 @@
                 });
             }
             if(place.geometry.location) {
-                location.val(place.geometry.location.nb + ", " + place.geometry.location.ob);
+                location.val(place.geometry.location.d + ", " + place.geometry.location.e);
             }
         });
 
@@ -156,10 +157,11 @@
         $('ul.nav.nav-tabs li a[data-toggle="tab"]').click(function() {
             setTimeout(function() {
                 if(typeof place !== 'undefined') {
-                    pos = new google.maps.LatLng(place.geometry.location.nb, place.geometry.location.ob);
+                    console.log(place);
+                    pos = new google.maps.LatLng(place.geometry.location.d, place.geometry.location.e);
                 }
                 else {
-                    pos = new google.maps.LatLng(46.70973594407157, 2.61474609375)
+                    pos = new google.maps.LatLng(46.70973594407157, 2.61474609375);
                 }
                 var latlng = pos;
                 var map = new google.maps.Map(document.getElementById("map"), {
@@ -171,7 +173,7 @@
                 // Positionne un marqueur lié à l'emplacement de recherche
                 if(typeof place !== 'undefined') {
                     var marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(place.geometry.location.nb, place.geometry.location.ob),
+                        position: new google.maps.LatLng(place.geometry.location.d, place.geometry.location.e),
                         map: map,
                         title: place.formatted_address
                     });

@@ -23,7 +23,6 @@
         }
         input[type="submit"] {
             width: 200px;
-            font-weight: bold;
         }
         input[name*="user["] {
             width: 130px;
@@ -57,7 +56,7 @@
         <ul class="well">
             <li><span class="identity">Nom</span>{{ user.username }} {{ user.lastname }}</li>
             <li><span class="identity">Âge</span>{{ user.getAge }} ans</li>
-            <li><span class="identity">Recherches</span>3</li>
+            <li><span class="identity">Recherches</span>{{ user.nbWanteds }}</li>
             <li><span class="identity">Retrouvailles</span>{{ user.found }}</li>
             <li><span class="identity">Email <i class="icon-eye-close"></i></span>{{ form_row(form.email) }}</li>
             <li><span class="identity">Profil Facebook</span>{{ form_row(form.facebookPage) }}</li>
@@ -103,7 +102,7 @@
 {% block right_content %}
     <div align="center">
         <p><input type="submit" class="btn btn-success"  value="Terminer" /></p>
-        <p><a href="{{ path('account') }}" class="btn btn-danger" style="width: 175px;"><b>Annuler</b></a></p>
+        <p><a href="{{ path('account') }}" class="btn btn-danger" style="width: 175px;">Annuler</a></p>
     </div>
 {% endblock %}
 

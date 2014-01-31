@@ -546,6 +546,16 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
     }
 
     /**
+     * Get counter of wanteds
+     *
+     * @return int
+     */
+    public function getNbWanteds()
+    {
+        return count($this->wanteds);
+    }
+
+    /**
      * Add places
      *
      * @param \FindBack\SiteBundle\Entity\Place $places
@@ -621,7 +631,7 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
      */
     public function getFound()
     {
-        return $this->found;
+        return count($this->found);
     }
 
     /**

@@ -18,8 +18,12 @@ class UserController extends Controller
         $descriptionRepo = $this->getDoctrine()->getManager()->getRepository('FindBack\SiteBundle\Entity\Description');
         $description = $descriptionRepo->findOneBy(array('user' => $user->getId()));
 
+        $wantedRepo = $this->getDoctrine()->getManager()->getRepository('FindBack\SiteBundle\Entity\Wanted');
+        $wanteds = $wantedRepo->findBy(array('user' => $user->getId()));
+
         return $this->render('FindBackSiteBundle:User:index.html.twig', array(
             'user' => $user,
+            'wanteds' => $wanteds,
             'description' => $description
         ));
     }
@@ -46,7 +50,7 @@ class UserController extends Controller
                 );
 
                 return $this->redirect($this->generateUrl('account'));
-            } //print_r($form->getErrors());
+            }
         }
 
         return $this->render('FindBackSiteBundle:User:edit.html.twig', array(

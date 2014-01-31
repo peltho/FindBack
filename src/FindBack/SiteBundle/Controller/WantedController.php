@@ -43,7 +43,7 @@ class WantedController extends Controller
                 return $this->redirect($this->generateUrl('wanted_show', array('id' => $wanted->getId())));
             }
         }
-
+        // OK
         return $this->render('FindBackSiteBundle:Wanted:search.html.twig', array(
             'form' => $form->createView()
         ));

@@ -37,8 +37,9 @@ body {
     background-color: #FAFAFA;
 }
 
-.dropdown-menu a {
+.dropdown-menu>li>a {
     font-size: 11px;
+    padding: 3px 10px;
 }
 
 .user p {

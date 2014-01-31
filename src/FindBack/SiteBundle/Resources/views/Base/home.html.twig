@@ -33,18 +33,16 @@
 {% block right_content %}
 
     {% for wanted in lastWanteds %}
-        {{ loop.index }}
-            {#<div data-toggle="collapse" data-target="#wanted{{ wanted.id }}" class="town_label">
+            <div data-toggle="collapse" data-target="#wanted{{ wanted.id }}" class="town_label">
                 <span class="label">{{ wanted.place.city }}</span>
             </div>
             <div id="wanted{{ wanted.id }}" class="collapse in">
                 <ul class="last_wanted">
                     <li><i class="icon-chevron-right"></i>
                         <span class="badge">{{ wanted.date.date }}</span>
-                        <a href="{{ path('wanted_show', {'id': wanted.id}) }}"><b>{{ wanted.place.establishmentName }}</b> : un(e) {{ wanted.description.gender }}</a></li>
+                        <a href="{{ path('wanted_show', {'id': wanted.id}) }}"><b>{{ wanted.place.establishmentName }}</b> : {% if wanted.description.gender == 'Femme' %}une femme{% else %}un homme{% endif %}</a></li>
                 </ul>
-            </div>#}
-        {#{% endfor %}#}
+            </div>
     {% endfor %}
 
 {% endblock %}

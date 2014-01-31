@@ -38,11 +38,13 @@
         <h5>Informations personnelles</h5>
         <ul class="well">
             <li><span class="identity">Nom</span>{{ user.username }} {{ user.lastname }}</li>
-            <li><span class="identity">Âge</span>{{ user.getAge }} ans</li>
-            <li><span class="identity">Recherches</span>4</li>
-            <li><span class="identity">Retrouvailles</span>1{#{{ user.found }}#}</li>
+            <li><span class="identity">Âge</span>{{ user.age }} ans</li>
+            <li><span class="identity">Recherches</span>{{ user.nbWanteds }}</li>
+            <li><span class="identity">Retrouvailles</span>{{ user.found }}</li>
             <li><span class="identity">Email <i class="icon-eye-close"></i></span><a href="mailto:{{ user.email }}">{{ user.email }}</a></li>
-            <li><span class="identity">Facebook</span><a href="{{ user.facebookPage }}" target="_blank">Profil</a></li>
+            {% if user.facebookPage %}
+                <li><span class="identity">Facebook</span><a href="{{ user.facebookPage }}" target="_blank">Profil</a></li>
+            {% endif %}
             {% if user.website %}
                 <li><span class="identity">Site Web</span><a href="http://{{ user.website }}" target="_blank">{{ user.website }}</a></li>
             {% endif %}
@@ -51,6 +53,7 @@
     <div class="infos" style="float:right;">
         <h5>Description physique</h5>
         <ul class="well">
+            {% if description %}
             <li><span class="identity">Sexe</span>{{ user.gender|trans }}</li>
             <li><span class="identity">Taille</span>{{ description.height }}</li>
             <li><span class="identity">Type</span>{{ description.type }}</li>
@@ -59,9 +62,12 @@
             <li><span class="identity">Yeux</span>{{ description.eyes }}</li>
             <li><span class="identity">Piercing</span>{{ description.piercing }}</li>
             <li><span class="identity">Tatouage</span>{{ description.tattoo }}</li>
+            {% else %}
+                <li style="text-align: center;"><a href="#" class="btn btn-success">Ajouter des détails</a></li>
+            {% endif %}
         </ul>
     </div>
-    <h5>Lieux fréquentés <a href="#modal" role="button" data-toggle="modal"><i class="icon-question-sign"></i></a></h5>
+    <h5 style="clear:both;">Lieux fréquentés <a href="#modal" role="button" data-toggle="modal"><i class="icon-question-sign"></i></a></h5>
     <div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -111,6 +117,7 @@
 
     <h5>Mes avis de recherche</h5>
     <div class="well extended">
+        {% if wanteds %}
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -122,24 +129,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Femme</td>
-                    <td>Aix-en-Provence</td>
-                    <td>Le Scat</td>
-                    <td>03/08/2013</td>
-                    <td>23h00</td>
-                    <td><a href="#"><i class="icon-search"></i></a></td>
-                </tr>
-                <tr>
-                    <td>Femme</td>
-                    <td>Aix-en-Provence</td>
-                    <td>Le Mistral</td>
-                    <td>01/08/2013</td>
-                    <td>23h45</td>
-                    <td><a href="#"><i class="icon-search"></i></a></td>
-                </tr>
+                {% for wanted in wanteds %}
+                    <tr>
+                        <td>{{ wanted.description.gender }}</td>
+                        <td>{{ wanted.place.city }}</td>
+                        <td>{{ wanted.place.establishmentName }}</td>
+                        <td>{{ wanted.date.date }}</td>
+                        <td>{{ wanted.date.time }}</td>
+                        <td><a href="{{ path('wanted_show', { 'id': wanted.id }) }}"><i class="icon-search"></i></a></td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
+        {% else %}
+            <p style="margin: 0;"><i>Aucun avis de recherche.</i></p>
+        {% endif %}
     </div>
 
     <h5>Personnes retrouvées</h5>
@@ -171,9 +175,8 @@
 
 {% block right_content %}
     <div align="center">
-        <p><a class="btn" href="{{ path('account_edit') }}"><b>Éditer mes informations</b></a></p>
-        <p><a class="btn btn-primary" href="#"><b>Voir mon profil public</b></a></p>
-        {#<p><button class="btn btn-danger"><b>Supprimer mon compte</b></button></p>#}
+        <p><a class="btn" href="{{ path('account_edit') }}" style="width: 175px;">Éditer mes informations</a></p>
+        <p><a class="btn btn-primary" href="#" style="width: 175px;">Voir mon profil public</a></p>
     </div>
 {% endblock %}
 
@@ -181,7 +184,13 @@
     <h5>Bio</h5>
     <div align="center" style="padding: 10px">
         <div class="profile_img">
-            <img src="https://graph.facebook.com/{{ user.facebookId }}/picture?width=160&height=160" />
+            {% if user.facebookId %}
+                <img src="https://graph.facebook.com/{{ user.facebookId }}/picture?width=160&height=160" />
+            {% else %}
+                <p>Pour afficher votre photo, vous devez lier votre compte à Facebook !<br />
+                Faites-le en ajoutant le lien de votre mur facebook lorsque vous éditez vos informations.
+                </p>
+            {% endif %}
         </div>
         <p class="well" style="margin: 10px; width: auto;text-align: left;">
             {{ user.biography|nl2br }}

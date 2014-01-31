@@ -14,7 +14,8 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                <li><a href="#"><i class="icon-eye-open"></i> Voir mon profil public</a></li>
+                <li><a href="{{ path('logout') }}"><i class="icon-off"></i> Déconnexion</a></li>
             </ul>
         </div>
     </div>
@@ -41,10 +42,23 @@
 {% block footer %}
     <div class="footer">
         <ul>
-            <li><a href="#">Confidentialité</a></li>
-            <li><a href="#">Conditions</a></li>
-            <li><a href="#">À propos</a></li>
+            <li><a href="#privacy" data-toggle="modal">Confidentialité</a></li>
+            <li><a href="#conditions" data-toggle="modal">Conditions</a></li>
+            <li><a href="#about" data-toggle="modal">À propos</a></li>
         </ul>
         <p>© 2014 FindBack</p>
+    </div>
+
+    <div id="privacy" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="modalLabel">Confidentialité</h3>
+        </div>
+        <div class="modal-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada arcu in arcu tincidunt, dignissim malesuada nunc placerat. Aenean eros velit, interdum sit amet ultrices vel, dignissim ac erat. Nullam quis nulla cursus, placerat mi nec, facilisis tellus. Sed consequat, nisi vitae aliquam porttitor, nisi lorem mattis ligula, nec pellentesque nisi metus quis lectus. Ut dui augue, placerat sed egestas a, condimentum eget ante. Fusce venenatis ac massa nec iaculis. Nunc sit amet imperdiet lacus, at euismod libero. Praesent justo purus, egestas ac sapien ac, elementum vulputate massa. Nunc imperdiet nisl at lacus vulputate, in viverra purus ornare. Ut accumsan enim non risus lacinia imperdiet. Quisque pulvinar convallis erat ac blandit. Aenean id mi vel enim elementum luctus. Pellentesque commodo elit lobortis est volutpat fermentum. Nulla porttitor, nisl sit amet cursus cursus, nisi nunc viverra turpis, at vehicula tellus arcu in orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed ipsum orci, rutrum ullamcorper gravida quis, mattis in felis. Phasellus odio nisi, pretium vitae diam consectetur, rutrum rutrum turpis. In hac habitasse platea dictumst. Donec in magna lacus. Cras tempor ullamcorper diam vitae luctus. Pellentesque scelerisque dapibus tortor. Aenean id volutpat ligula. Integer placerat ligula pellentesque, mattis nibh sit amet, egestas lorem. In et eros at orci egestas tempor vel ut dolor. Phasellus eget sem sed leo placerat rhoncus. Aliquam vitae quam vitae metus tincidunt venenatis. Nam ligula justo, venenatis ut vestibulum a, gravida vel nisl. In ultricies, magna ac consequat ultrices, nunc nulla rutrum elit, et dictum est risus sit amet nulla. Maecenas dictum lectus vel nisl pretium eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in ligula ut ligula condimentum posuere vitae nec ligula. Phasellus eu rhoncus odio. In interdum tincidunt mauris vitae sollicitudin. Nunc nec viverra lectus. Nullam ultricies malesuada ipsum, aliquet hendrerit magna pretium eu. Vivamus sit amet leo magna. Sed ultricies nibh a nulla lobortis scelerisque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed velit justo, pulvinar nec fringilla sed, cursus id orci. Vivamus id facilisis orci, quis congue nisi. Praesent volutpat interdum odio at aliquam.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
+        </div>
     </div>
 {% endblock %}

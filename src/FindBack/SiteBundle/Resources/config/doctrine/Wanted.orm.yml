@@ -18,7 +18,7 @@ FindBack\SiteBundle\Entity\Wanted:
             inversedBy: wanteds
         description:
             targetEntity: Description
-            inversedBy: wanteds
+#            inversedBy: wanteds
         place:
             targetEntity: Place
             inversedBy: wanteds

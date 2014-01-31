@@ -2,6 +2,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet" />
     <link href="{{ asset('bundles/findbacksite/css/jquery.ui.timepicker.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
 
@@ -17,7 +18,7 @@
             Une <b>description physique</b> de vous-même, ainsi que les <b>lieux fréquentés</b> en soirée. Pour cela, cliquez sur votre prénom en haut à droite de l'écran.
         </p>
     </div>
-    <h5>Effectuer une vérification instantanée</h5>
+    <h5>Effectuer une vérification rapide</h5>
     <form style="margin-left:30px;" action="{{ path('wanted_check') }}" method="post" {{ form_enctype(form) }}>
         <div align="center"  style="display: inline-block">
             <div class="input-prepend">

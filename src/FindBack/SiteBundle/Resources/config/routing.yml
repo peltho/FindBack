@@ -16,7 +16,7 @@ logout:
     pattern:  /logout
 
 account:
-    pattern:  /account
+    pattern:  /me
     defaults: { _controller: FindBackSiteBundle:User:index }
 
 account_edit:

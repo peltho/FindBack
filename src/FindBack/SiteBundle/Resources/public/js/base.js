@@ -1,21 +1,3 @@
-/*$(function() {
-
-
-    $( ".menu > li > a" ).each(function() {
-        var wrapper = $(this).next('ul');
-        $(this).parent('li').hover(
-            function () {
-                wrapper.slideDown();
-            },
-            function () {
-                wrapper.slideUp();
-            }
-        );
-    });
-
-});*/
-
-
 function autocompleteInputs(idInput, name, etype, location, street, city, place) {
     //var place;
     var input = /** @type {HTMLInputElement} */(document.getElementById(idInput));
