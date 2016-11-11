@@ -30,9 +30,11 @@ FindBack\SiteBundle\Entity\User:
         gender:
             type: string
             length: 10
+            nullable: true
         salt:
             type: string
             length: 32
+            nullable: true
         isActive:
             type: boolean
         facebookPage:
@@ -60,6 +62,7 @@ FindBack\SiteBundle\Entity\User:
             joinColumn:
                 name: description_id
                 referencedColumnName: id
+            nullable: true
     manyToMany:
         places:
             targetEntity: Place

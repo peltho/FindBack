@@ -26,12 +26,12 @@ class UserEditType extends AbstractType
                 ),
                 'required' => false
             ))
-            ->add('gender', 'choice', array('label' => false,
+            /*->add('gender', 'choice', array('label' => false,
                 'choices' => array(
                     'Male'   => 'Homme',
                     'Female' => 'Femme'
                 )
-            ))
+            ))*/
             ->add('facebookPage', 'text', array('label' => false,
                 'required' => false
             ))

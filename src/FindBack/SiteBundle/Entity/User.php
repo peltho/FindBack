@@ -97,7 +97,8 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
     public function __construct()
     {
         $this->isActive = true;
-        $this->salt = md5(uniqid(null, true));
+        //$this->setDescription(new \FindBack\SiteBundle\Entity\Description());
+        //$this->salt = md5(uniqid(null, true));
     }
 
     /**
@@ -246,7 +247,12 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
      */
     public function setGender($gender)
     {
-        $this->gender = $gender;
+        if($this->getDescription() == null) {
+            $this->gender = $gender;
+        }
+        else {
+            $this->getDescription()->setGender($gender);
+        }
     
         return $this;
     }
@@ -258,7 +264,13 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
      */
     public function getGender()
     {
-        return $this->gender;
+        if($this->getDescription() == null) {
+            $gender = $this->gender;
+        }
+        else {
+            $gender = $this->getDescription()->getGender();
+        }
+        return $gender;
     }
 
     /**
@@ -281,7 +293,8 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
      */
     public function getSalt()
     {
-        return $this->salt;
+        //return $this->salt;
+        return null;
     }
 
     /**
@@ -375,7 +388,7 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
     {
         return serialize(array(
             $this->password,
-            $this->salt,
+            //$this->salt,
             $this->username,
             $this->isActive,
             $this->gender,
@@ -401,7 +414,7 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
 
         list(
             $this->password,
-            $this->salt,
+            //$this->salt,
             $this->username,
             $this->isActive,
             $this->gender,

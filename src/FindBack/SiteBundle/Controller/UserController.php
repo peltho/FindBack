@@ -2,6 +2,7 @@
 
 namespace FindBack\SiteBundle\Controller;
 
+use FindBack\SiteBundle\Entity\Description;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\User;
@@ -35,12 +36,19 @@ class UserController extends Controller
         $descriptionRepo = $this->getDoctrine()->getManager()->getRepository('FindBack\SiteBundle\Entity\Description');
         $description = $descriptionRepo->findOneBy(array('user' => $user->getId()));
 
+        $em = $this->getDoctrine()->getManager();
+
         $form = $this->createForm(new UserEditType(), $user);
         $form->handleRequest($request);
 
         if ($request->getMethod() == 'POST') {
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
+
+                $desc = $user->getDescription();
+                $desc->setUser($user);
+                $em->persist($desc);
+                $user->setDescription($desc);
+
                 $em->persist($user);
                 $em->flush();
 

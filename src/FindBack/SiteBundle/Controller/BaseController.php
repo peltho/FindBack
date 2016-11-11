@@ -27,7 +27,6 @@ class BaseController extends Controller
                     array_push($cities, $wanted->getPlace()->getCity());
             }
 
-
             return $this->render('FindBackSiteBundle:Base:home.html.twig', array(
                 'lastWanteds' => $lastWanteds,
                 //'cities' => $cities
@@ -71,6 +70,7 @@ class BaseController extends Controller
             $factory = $this->get('security.encoder_factory');
             $encoder = $factory->getEncoder($user);
             $password = $encoder->encodePassword($form->getData()->getPassword(), $user->getSalt());
+
             $user->setPassword($password);
             $em->persist($user);
             $em->flush();

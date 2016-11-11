@@ -1,7 +1,7 @@
 parameters:
     login.success_handler.class: FindBack\SiteBundle\Handler\LoginSuccessHandler
     logout.success_handler.class: FindBack\SiteBundle\Handler\LogoutSuccessHandler
-    facebook.user_provider.class: FindBack\SiteBundle\Entity\FacebookProvider
+    #facebook.user_provider.class: FindBack\SiteBundle\Entity\FacebookProvider
 
 services:
     login.success_handler:
@@ -12,9 +12,9 @@ services:
         class: %logout.success_handler.class%
         public: false
         arguments:  ['@router', '@doctrine.orm.entity_manager', '@service_container' ]
-    facebook.user_provider:
-        class: %facebook.user_provider.class%
-        arguments:
-            facebook: "@fos_facebook.api"
-            entityManager: "@doctrine.orm.entity_manager"
-            validator: "@validator"
+    #facebook.user_provider:
+    #    class: %facebook.user_provider.class%
+    #    arguments:
+    #        facebook: "@fos_facebook.api"
+    #        entityManager: "@doctrine.orm.entity_manager"
+    #        validator: "@validator"

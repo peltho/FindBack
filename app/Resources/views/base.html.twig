@@ -11,7 +11,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+        {#{{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}#}
         {% block header %}
             <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
@@ -28,8 +28,8 @@
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/bootstrap.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/base.js') }}"></script>
             <script type="text/javascript">
-                function goLogIn(){
-                    window.location.href = "{{ path('login_fb_check') }}";
+                /*function goLogIn(){
+                    window.location.href = "{#{{ path('login_fb_check') }}#}";
                 }
 
                 function onFbInit() {
@@ -38,11 +38,11 @@
                             if (response.session || response.authResponse) {
                                 setTimeout(goLogIn, 500);
                             } else {
-                                window.location.href = "{{ path('logout') }}";
+                                window.location.href = "{#{{ path('logout') }}#}";
                             }
                         });
                     }
-                }
+                }*/
             </script>
             {% if form is defined %}{{ form_javascript(form) }}{% endif %}
         {% endblock %}

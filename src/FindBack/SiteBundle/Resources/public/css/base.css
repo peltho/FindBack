@@ -186,6 +186,16 @@ article .content {
     padding: 10px 30px 10px 30px;
 }
 
+.list_cities {
+    width: 150px;
+    height:100px;
+    border: 1px solid #C9C9C8;
+    border-radius: 5px;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0 2px;
+}
+
 ul {
     margin: 0;
 }
