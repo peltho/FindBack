@@ -4,6 +4,52 @@
     {{ parent() }}
     <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet" />
     <link href="{{ asset('bundles/findbacksite/css/jquery.ui.timepicker.css') }}" type="text/css" rel="stylesheet" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 300px;
+            margin-bottom: 20px;
+        }
+        .controls {
+            margin-top: 10px;
+            border: 1px solid transparent;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            height: 32px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #pac-input {
+            background-color: #fff;
+            margin-left: 12px;
+            padding: 15px 10px;
+            height: 20px;
+            line-height: 20px;
+            text-overflow: ellipsis;
+            width: 300px;
+            border-radius: 4px;
+        }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+
+        #type-selector {
+            color: #fff;
+            background-color: #4d90fe;
+            padding: 5px 11px 0px 11px;
+        }
+
+        #target {
+            width: 345px;
+        }
+    </style>
 {% endblock %}
 
 {% block left_title %}
@@ -20,11 +66,10 @@
     </div>
     <h5>Effectuer une vérification rapide</h5>
     <form style="margin-left:30px;" action="{{ path('wanted_check') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_row(form.place.formatted_address) }}
+        <input id="pac-input" class="controls" type="text" placeholder="Où étiez-vous ?">
+        <div id="map"></div>
         <div align="center"  style="display: inline-block">
-            <div class="input-prepend">
-                <span class="add-on"><i class="icon-map-marker"></i></span>
-                {{ form_row(form.place.formatted_address) }}
-            </div>
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-calendar"></i></span>
                 {{ form_row(form.date.date) }}
@@ -58,7 +103,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
     <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.ui.timepicker.js') }}"></script>
     <script type="text/javascript">
         /**
@@ -79,78 +123,17 @@
 
         /**
          * Placeholder dynamique
-         */
+         * /
         $('#wanted_place_formatted_address').focus(function() {
             $(this).attr('placeholder', 'Nom, Adresse');
         }).blur(function() {
             $(this).attr('placeholder', 'Où étiez-vous ?');
         });
+         */
 
         $('option').first().prop({
             'disabled': 'disabled',
             'selected': 'selected'
-        });
-
-        var input = /** @type {HTMLInputElement} */(document.getElementById('wanted_place_formatted_address'));
-        var autocomplete = new google.maps.places.Autocomplete(input);
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            var place = autocomplete.getPlace();
-            var address = '';
-            if (place.address_components) {
-              address = [
-                (place.address_components[0] && place.address_components[0].short_name || ''),
-                (place.address_components[1] && place.address_components[1].short_name || ''),
-                (place.address_components[2] && place.address_components[2].short_name || '')
-              ].join(' ');
-            }
-            var establishment_name = $('input[name="wanted[place][establishment_name]"]');
-            var establishment_type = $('input[name="wanted[place][establishment_type]"]');
-            var location           = $('input[name="wanted[place][location]"]');
-            var street             = $('input[name="wanted[place][street]"]');
-            var city               = $('input[name="wanted[place][city]"]');
-
-            establishment_name.val(null);
-            establishment_type.val(null);
-            location.val(null);
-            street.val(null);
-            city.val(null);
-
-            for(var i=0; i<place.address_components.length; ++i) {
-                switch(place.address_components[i].types[0]) {
-                    case 'route':
-                        street.val(place.address_components[i].long_name);
-                        break;
-                    case 'locality':
-                        city.val(place.address_components[i].long_name);
-                        break;
-                }
-                if(place.types[place.types.length-1] == "establishment") {
-                    establishment_name.val(place.name);
-                    var type = place.types[0];
-                    establishment_type.val(type);
-
-                    if(type == "night_club" || type == "bar") {
-                        $('option[value="night_club"]').prop('selected', 'selected');
-                    } else if (type == "university") {
-                        $('option[value="university"]').prop('selected', 'selected');
-                    } else if (type == "school") {
-                        $('option[value="school"]').prop('selected', 'selected');
-                    } else if (type == "restaurant" || type == "food") {
-                        $('option[value="restaurant"]').prop('selected', 'selected');
-                    } else if (type == "lodging") {
-                        $('option[value="lodging"]').prop('selected', 'selected');
-                    }
-                } else {
-                    $('option').first().prop({
-                        'disabled': 'disabled',
-                        'selected': 'selected'
-                    });
-                }
-                if(place.geometry.location) {
-                    location.val(place.geometry.location.nb + ", " + place.geometry.location.ob);
-                }
-            }
-            //console.log(place);
         });
 
         $('.date').datepicker({
@@ -158,5 +141,110 @@
             dateFormat: "dd/mm/yy"
         });
         $('.time').timepicker();
+
+        function initAutocomplete() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 43.300000, lng: 5.400000},
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function() {
+                searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
+            // [START region_getplaces]
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+
+                if (places.length == 0) {
+                    return;
+                }
+
+                // Clear out the old markers.
+                markers.forEach(function(marker) {
+                    marker.setMap(null);
+                });
+                markers = [];
+
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    //console.log(place);
+                    $("#wanted_place_formatted_address").val(place.name + " " + place.vicinity);
+                    if (place.address_components) {
+                        address = [
+                            (place.address_components[0] && place.address_components[0].short_name),
+                            (place.address_components[1] && place.address_components[1].short_name +","),
+                            (place.address_components[2] && place.address_components[2].short_name)
+                        ].join(' ');
+                        $("#wanted_place_city").val(place.address_components[2].short_name);
+                    }
+
+                    place.types.forEach(function(t) {
+                        switch(t) {
+                            case "bar":
+                            case "night_club":
+                                $('option[value="night_club"]').prop('selected', 'selected');
+                                break;
+                            case "university":
+                                $('option[value="university"]').prop('selected', 'selected');
+                                break;
+                            case "school":
+                                $('option[value="school"]').prop('selected', 'selected');
+                                break;
+                            case "restaurant":
+                            case "food":
+                                $('option[value="restaurant"]').prop('selected', 'selected');
+                                break;
+                            case "lodging":
+                                $('option[value="lodging"]').prop('selected', 'selected');
+                                break;
+                        }
+                    });
+
+                    $("#wanted_place_establishment_name").val(place.name);
+                    $("#wanted_place_street").val(place.vicinity);
+                    $("#wanted_place_location").val(place.geometry.location.lat() + ", " + place.geometry.location.lng());
+
+                    var icon = {
+                        url: place.icon,
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(25, 25)
+                    };
+
+                    // Create a marker for each place.
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        icon: icon,
+                        title: place.name,
+                        position: place.geometry.location
+                    }));
+
+                    if (place.geometry.viewport) {
+                        // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+                map.fitBounds(bounds);
+            });
+            // [END region_getplaces]
+        }
+
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4QDBP3GO6fXiHJGSLweZwPpbaMf1FSJw&libraries=places&callback=initAutocomplete"
+            async defer></script>
 {% endblock %}
