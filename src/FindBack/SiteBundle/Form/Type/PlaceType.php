@@ -11,7 +11,7 @@ class PlaceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('formatted_address', 'text', array('label' => false,
+            ->add('formatted_address', 'hidden', array('label' => false,
                 'attr' => array(
                     'placeholder' => 'Où étiez-vous ?'
                 )
@@ -27,7 +27,7 @@ class PlaceType extends AbstractType
                     'lodging'    => 'Hôtel',
                     'restaurant' => 'Restaurant',
                     'university' => 'Université',
-                    'lycee'      => 'Lycée',
+                    'school'     => 'Lycée',
                     'office'     => 'Entreprise'
                 ),
                 'required' => false,

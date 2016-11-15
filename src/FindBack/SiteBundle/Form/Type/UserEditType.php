@@ -12,7 +12,7 @@ class UserEditType extends AbstractType
     {
         $builder
             ->add('email', 'email', array('label' => false))
-            ->add('password', 'repeated', array('label' => false,
+            /*->add('password', 'repeated', array('label' => false,
                 'type' => 'password',
                 'first_options' => array(
                     'attr' => array(

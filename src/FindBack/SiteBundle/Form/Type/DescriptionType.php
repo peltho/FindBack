@@ -77,6 +77,18 @@ class DescriptionType extends AbstractType
                 ),
                 'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez une coupe')
             ))
+            ->add('beard', 'choice', array('label' => 'Barbe',
+                'choices' => array(
+                    'None'     => 'Aucune',
+                    '3Days'    => 'De 3 jours',
+                    'bouc'     => 'Bouc',
+                    'mustache' => 'Moustache',
+                    'hirsute'  => 'Hirsute',
+                    'long'     => 'Longue',
+                    'tailored' => 'Taillée'
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez une barbe')
+            ))
             ->add('eyes', 'choice', array('label' => 'Yeux',
                 'choices' => array(
                     'Marrons' => 'Marrons',
@@ -90,18 +102,89 @@ class DescriptionType extends AbstractType
             ))
             ->add('piercing', 'choice', array('label' => 'Piercing',
                 'choices' => array(
-                    'NA'  => 'Ne sais pas',
-                    'Non' => 'Non',
-                    'Oui' => 'Oui',
-                )
+                    'NA'     => 'Ne sais pas',
+                    'Non'    => 'Non',
+                    'tragus' => 'Tragus',
+                    'ecarteur' => 'Écarteur',
+                    'arcade'   => 'Arcade',
+                    'nose'     => 'Nez',
+                    'labbia'   => 'Lèvre',
+                    'nuque'    => 'Nuque',
+                    'other'    => 'Autre'
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez un piercing')
+            ))
+            ->add('earring', 'choice', array('label' => 'Boucles d\'oreilles',
+                'choices' => array(
+                    'none'    => 'Aucune',
+                    'right'   => 'À droite',
+                    'left'    => 'À gauche',
+                    'both'    => 'Aux deux oreilles',
+                    'pendant' => 'Pendantes',
+                    'ring'    => 'Anneau',
+                    'boule'   => 'Boule',
+                    'pierre'  => 'Pierre'
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez des boucles d\'oreilles')
+            ))
+            ->add('lipstick', 'choice', array('label' => 'Rouge à lèvres',
+                'choices' => array(
+                    'none' => 'Aucun',
+                    'red'  => 'Rouge',
+                    'black' => 'Noir',
+                    'rose'  => 'Rose',
+                    'other' => 'Autre'
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez un rouge à lèvres')
             ))
             ->add('tattoo', 'choice', array('label' => 'Tatouage',
                 'choices' => array(
                     'NA'  => 'Ne sais pas',
                     'Non' => 'Non',
-                    'Oui' => 'Oui',
-                )
-            ));
+                    'arms' => 'Bras',
+                    'neck' => 'Cou',
+                    'face' => 'Visage',
+                    'legs' => 'Jambes'
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez un tatouage')
+            ))
+            ->add('topClothing', 'choice', array('label' => 'Couleur haut (Vêtement)',
+                'choices' => array(
+                    'NA'    => 'Ne sais pas',
+                    'white' => 'Blanc / beige',
+                    'black' => 'Noir',
+                    'grey'  => 'Gris',
+                    'blue'  => 'Bleu marine / clair',
+                    'red'   => 'Rouge / Bordeaux',
+                    'green' => 'Vert vif / kaki',
+                    'yellow' => 'Jaune',
+                    'purple' => 'Violet',
+                    'rose'   => 'Rose',
+                    'coral'  => 'Corail',
+                    'orange' => 'Orange',
+                    'maroon' => 'Marron / Taupe',
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez un haut')
+            ))
+            ->add('bottomClothing', 'choice', array('label' => 'Couleur bas (Vêtement)',
+                'choices' => array(
+                    'NA'    => 'Ne sais pas',
+                    'white' => 'Blanc / beige',
+                    'black' => 'Noir',
+                    'grey'  => 'Gris',
+                    'blue'  => 'Bleu marine / clair',
+                    'red'   => 'Rouge / Bordeaux',
+                    'green' => 'Vert vif / kaki',
+                    'yellow' => 'Jaune',
+                    'purple' => 'Violet',
+                    'rose'   => 'Rose',
+                    'coral'  => 'Corail',
+                    'orange' => 'Orange',
+                    'maroon' => 'Marron / Taupe',
+                ),
+                'attr' => array('class' => 'chosen-select', 'data-placeholder' => 'Sélectionnez un bas')
+            ))
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

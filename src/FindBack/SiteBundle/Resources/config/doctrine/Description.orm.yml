@@ -27,6 +27,10 @@ FindBack\SiteBundle\Entity\Description:
             type: string
             length: 30
             nullable: true
+        beard:
+            type: string
+            length: 30
+            nullable: true
         eyes:
             type: string
             length: 30
@@ -34,6 +38,22 @@ FindBack\SiteBundle\Entity\Description:
         piercing:
             type: string
             length: 11
+            nullable: true
+        earring:
+            type: string
+            length: 30
+            nullable: true
+        lipstick:
+            type: string
+            length: 30
+            nullable: true
+        topClothing:
+            type: string
+            length: 30
+            nullable: true
+        bottomClothing:
+            type: string
+            length: 30
             nullable: true
         tattoo:
             type: string

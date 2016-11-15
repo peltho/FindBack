@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
     <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="UTF-8" />
         <title>{% block title %}FindBack{% endblock %}</title>
         {% block stylesheets %}
@@ -26,7 +27,7 @@
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.min.js') }}"></script>
             <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/bootstrap.min.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/base.js') }}"></script>
+            {#<script type="text/javascript" src="{{ asset('bundles/findbacksite/js/base.js') }}"></script>#}
             <script type="text/javascript">
                 /*function goLogIn(){
                     window.location.href = "{#{{ path('login_fb_check') }}#}";

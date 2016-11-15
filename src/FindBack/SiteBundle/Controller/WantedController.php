@@ -67,6 +67,8 @@ class WantedController extends Controller
         $form->handleRequest($request);
 
         $result = array();
+        //https://maps.googleapis.com/maps/api/place/autocomplete/json
+        // ?input=le%20scat&components=country:fr&language=fr&key=AIzaSyD4QDBP3GO6fXiHJGSLweZwPpbaMf1FSJw
 
         if ($request->getMethod() == 'POST') {
             if ($form->isValid()) {

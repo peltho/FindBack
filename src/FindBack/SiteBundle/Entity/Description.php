@@ -285,4 +285,149 @@ class Description
         return $this->gender;
     }
 
+    /**
+     * @var string
+     */
+    private $beard;
+
+    /**
+     * @var string
+     */
+    private $earring;
+
+    /**
+     * @var string
+     */
+    private $lipstick;
+
+    /**
+     * @var string
+     */
+    private $topClothing;
+
+    /**
+     * @var string
+     */
+    private $bottomClothing;
+
+
+    /**
+     * Set beard
+     *
+     * @param string $beard
+     *
+     * @return Description
+     */
+    public function setBeard($beard)
+    {
+        $this->beard = $beard;
+
+        return $this;
+    }
+
+    /**
+     * Get beard
+     *
+     * @return string
+     */
+    public function getBeard()
+    {
+        return $this->beard;
+    }
+
+    /**
+     * Set earring
+     *
+     * @param string $earring
+     *
+     * @return Description
+     */
+    public function setEarring($earring)
+    {
+        $this->earring = $earring;
+
+        return $this;
+    }
+
+    /**
+     * Get earring
+     *
+     * @return string
+     */
+    public function getEarring()
+    {
+        return $this->earring;
+    }
+
+    /**
+     * Set lipstick
+     *
+     * @param string $lipstick
+     *
+     * @return Description
+     */
+    public function setLipstick($lipstick)
+    {
+        $this->lipstick = $lipstick;
+
+        return $this;
+    }
+
+    /**
+     * Get lipstick
+     *
+     * @return string
+     */
+    public function getLipstick()
+    {
+        return $this->lipstick;
+    }
+
+    /**
+     * Set topClothing
+     *
+     * @param string $topClothing
+     *
+     * @return Description
+     */
+    public function setTopClothing($topClothing)
+    {
+        $this->topClothing = $topClothing;
+
+        return $this;
+    }
+
+    /**
+     * Get topClothing
+     *
+     * @return string
+     */
+    public function getTopClothing()
+    {
+        return $this->topClothing;
+    }
+
+    /**
+     * Set bottomClothing
+     *
+     * @param string $bottomClothing
+     *
+     * @return Description
+     */
+    public function setBottomClothing($bottomClothing)
+    {
+        $this->bottomClothing = $bottomClothing;
+
+        return $this;
+    }
+
+    /**
+     * Get bottomClothing
+     *
+     * @return string
+     */
+    public function getBottomClothing()
+    {
+        return $this->bottomClothing;
+    }
 }
