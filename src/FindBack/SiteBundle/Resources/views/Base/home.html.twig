@@ -1,5 +1,9 @@
 {% extends "FindBackSiteBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
 {% block left_title %}
     <h5><i class="icon-home"></i> Accueil</h5>
 {% endblock %}
@@ -47,7 +51,7 @@
 
     {% for wanted in lastWanteds %}
         <div data-toggle="collapse" data-target="#wanted{{ wanted.id }}" class="town_label">
-            <span class="label">{{ wanted.place.city }}</span>
+            <span class="label city-label">{{ wanted.place.city }}</span>
         </div>
         <div id="wanted{{ wanted.id }}" class="collapse in">
             <ul class="last_wanted">

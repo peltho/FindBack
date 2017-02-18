@@ -47,10 +47,19 @@
         #target {
             width: 345px;
         }
+
+        .tagit-new {
+            /*width: 100%;*/
+        }
+
+        ul.tagit li:not(:first-child) ::-webkit-input-placeholder {opacity: 0;}
+        ul.tagit li:not(:first-child) ::-moz-placeholder {opacity: 0;}
+        ul.tagit li:not(:first-child) ::-ms-input-placeholder {opacity: 0;}
+        ul.tagit li:not(:first-child) ::placeholder {opacity: 0;}
     </style>
-    <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet" />
     <link href="{{ asset('bundles/findbacksite/css/chosen.min.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('bundles/findbacksite/css/search.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/findbacksite/css/jquery.tagit.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
 
 {% block left_title %}
@@ -84,6 +93,9 @@
                 </div>
             </div>
             <h5>En quelles circonstances ?</h5>
+            <p style="margin-left: 15px; margin-right: 15px;">
+                Comment vous êtes-vous rencontrés ? Renseignez des <b>mots-clés</b> (ex: danser, regard, discussion, rire, ...)
+            </p>
             <div class="well">
                 {{ form_row(form.circumstances) }}
             </div>
@@ -104,10 +116,17 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.ui.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.ui.timepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/tag-it.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/chosen.jquery.min.js') }}"></script>
     <script type="text/javascript">
+
+        var tagList = ['regard', 'danse', 'toucher', 'discussion', 'rire'];
+
+        $("#wanted_circumstances").tagit({
+            availableTags: tagList,
+            removeConfirmation: true
+        });
 
         $('#slider-range').slider({
             range: true,

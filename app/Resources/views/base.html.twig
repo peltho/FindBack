@@ -7,6 +7,7 @@
         {% block stylesheets %}
             <link href="{{ asset('bundles/findbacksite/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
             <link href="{{ asset('bundles/findbacksite/css/base.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('bundles/findbacksite/css/jquery-ui.min.css') }}" type="text/css" rel="stylesheet" />
             {% if form is defined %}{{ form_stylesheet(form) }}{% endif %}
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -25,7 +26,7 @@
         {{ block('footer') }}
         {% block javascripts %}
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery.min.js') }}"></script>
-            <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+            <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/jquery-ui.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/findbacksite/js/bootstrap.min.js') }}"></script>
             {#<script type="text/javascript" src="{{ asset('bundles/findbacksite/js/base.js') }}"></script>#}
             <script type="text/javascript">

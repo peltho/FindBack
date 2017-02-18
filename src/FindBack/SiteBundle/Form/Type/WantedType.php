@@ -14,10 +14,7 @@ class WantedType extends AbstractType
             ->add('place', new PlaceType(), array('label' => false))
             ->add('date', new DateType(), array('label' => false))
             ->add('description', new DescriptionType(), array(/*'required' => false, */'label' => false))
-            ->add('circumstances', 'textarea', array('label' => false,
-                'attr' => array(
-                    'placeholder' => 'Comment vous êtes-vous rencontrés ?'
-                ),
+            ->add('circumstances', 'text', array('label' => false,
                 'required' => false
             ));
     }
